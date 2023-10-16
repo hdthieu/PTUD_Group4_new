@@ -41,7 +41,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 public class GUI_HomeMain extends javax.swing.JFrame {
 
-    
+    // Hello
 
     Connection conn;
     ResultSet rs;
