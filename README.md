@@ -6,7 +6,7 @@
 
 * lệnh git
   * Lưu ý 1: Khi chưa có file trong máy thì clone code về
-    + git clone https://github.com/hdthieu/PTUD_Group4.git
+    + git clone https://github.com/hdthieu/PTUD_Group4_new
   * Lưu ý 2:  khi sửa code và push lên github   
   - khi sửa code xong rồi thì nhớ phải push lên theo ngày
     + B1: git pull origin master
