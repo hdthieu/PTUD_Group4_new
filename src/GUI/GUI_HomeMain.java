@@ -73,7 +73,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
     setLocationRelativeTo(null);
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     execute();
-  // lỏ phú
+  
 }
    
    public void scaleImage() {
@@ -145,7 +145,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnlBody.removeAll();
-                pnlBody.add(new GUI_TimKiemKH());
+                pnlBody.add(new GUI_QuanLyKhachHang());
                 pnlBody.repaint();
                 pnlBody.revalidate();
             }
@@ -162,11 +162,20 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         });
 
         // menu Nhà Cung Cấp
-        Menu menuNCC = new Menu(iconSupplier, "Nhà Cung Cấp", new ActionListener() { 
+        Menu menuQuanLyNCC = new Menu(iconSubMenu, "Quản Lý Nhà Cung Cấp", new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnlBody.removeAll();
                 pnlBody.add(new GUI_NhaCungCap());
+                pnlBody.repaint();
+                pnlBody.revalidate();
+            }
+        });
+        Menu menuTimKiemNhaCungCap = new Menu(iconSubMenu, "Tìm Kiếm Nhà Cung Cấp", new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnlBody.removeAll();
+                pnlBody.add(new GUI_TimKiemNhaCungCap());
                 pnlBody.repaint();
                 pnlBody.revalidate();
             }
@@ -202,21 +211,39 @@ public class GUI_HomeMain extends javax.swing.JFrame {
             }
         });
         // menu Đơn Đặt Hàng
-        Menu menuDonDatHang = new Menu(icondonDHang, "Đơn Đặt Hàng", new ActionListener() {
+        Menu menuLapDonDatHang = new Menu(iconSubMenu, "Lập Đơn Đặt Hàng", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnlBody.removeAll();
-                pnlBody.add(new GUI_DonDatHang());
+                pnlBody.add(new GUI_LapDonDatHang());
+                pnlBody.repaint();
+                pnlBody.revalidate();
+            }
+        });
+        Menu menuTimKiemDonDatHang = new Menu(iconSubMenu, "Tìm Kiếm Đơn Đặt Hàng", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnlBody.removeAll();
+                pnlBody.add(new GUI_TimKiemDonDatHang());
                 pnlBody.repaint();
                 pnlBody.revalidate();
             }
         });
         // menu Nhân Viên
-        Menu menuNhanVien = new Menu(iconNhanVien, "Nhân Viên", new ActionListener() {
+        Menu menuQuanLyNhanVien = new Menu(iconSubMenu, "Quản Lý Nhân Viên", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pnlBody.removeAll();
-                pnlBody.add(new GUI_NhanVien());
+                pnlBody.add(new NhanVien_GUI());
+                pnlBody.repaint();
+                pnlBody.revalidate();
+            }
+        });
+        Menu menuTimKiemNhanVien = new Menu(iconSubMenu, "Tìm Kiếm Nhân Viên", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnlBody.removeAll();
+                pnlBody.add(new GUI_TimKiemNhanVien());
                 pnlBody.repaint();
                 pnlBody.revalidate();
             }
@@ -235,6 +262,9 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         Menu menuSanPham = new Menu(iconProduct, "Sản Phẩm", null, menuQLySP, menuTimKiemSP, menuThongKeSP);
         Menu menuKhachHang = new Menu(iconCustomer, "Khách Hàng", null, menuQuanLyKH, menuTimKiemKH , menuThongKeKH);
         Menu menuHoaDon = new Menu(iconHoaDon, "Hóa Đơn", null, menuLapHD,menuTimKiemHD,  menuThongKeHD);
+        Menu menuDonDatHang = new Menu(icondonDHang, "Đơn Đặt Hàng", null, menuLapDonDatHang,menuTimKiemDonDatHang);
+        Menu menuNhanVien = new Menu(iconNhanVien, "Nhân Viên", null, menuQuanLyNhanVien,menuTimKiemNhanVien);
+        Menu menuNCC = new Menu(iconSupplier, "Nhà Cung Cấp", null, menuQuanLyNCC,menuTimKiemNhaCungCap);
 //        MenuItem menuPhongBan = new MenuItem(iconPB, "Quản lý công nhân", null, menuPB1, menuPB2, menuPB3);
 //        MenuItem menuCongTrinh = new MenuItem(iconHome, "Công trình", null, menuCT1);
 //        MenuItem menuAdmin = new MenuItem(iconAdmin, "Admin", null, menuadmin1);
