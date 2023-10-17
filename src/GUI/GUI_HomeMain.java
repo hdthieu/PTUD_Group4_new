@@ -201,6 +201,16 @@ public class GUI_HomeMain extends javax.swing.JFrame {
                 pnlBody.revalidate();
             }
         });
+        //menuItem Thống Kê Doanh Số Bán Hàng Của Nhân Viên
+        Menu menuDSBH = new Menu(iconSubMenu, "DSBH Của NV", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnlBody.removeAll();
+                pnlBody.add(new GUI_ThongKeDoanhSoBHCuaNhanVien());
+                pnlBody.repaint();
+                pnlBody.revalidate();
+            }
+        });
         // menu Đơn Đặt Hàng
         Menu menuDonDatHang = new Menu(icondonDHang, "Đơn Đặt Hàng", new ActionListener() {
             @Override
@@ -211,16 +221,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
                 pnlBody.revalidate();
             }
         });
-        // menu Nhân Viên
-        Menu menuNhanVien = new Menu(iconNhanVien, "Nhân Viên", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_NhanVien());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
+      
         // menu Tài khoản
         Menu menuTaiKhoan = new Menu(iconAccount, "Tài Khoản", new ActionListener() {
             @Override
@@ -235,9 +236,8 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         Menu menuSanPham = new Menu(iconProduct, "Sản Phẩm", null, menuQLySP, menuTimKiemSP, menuThongKeSP);
         Menu menuKhachHang = new Menu(iconCustomer, "Khách Hàng", null, menuQuanLyKH, menuTimKiemKH , menuThongKeKH);
         Menu menuHoaDon = new Menu(iconHoaDon, "Hóa Đơn", null, menuLapHD,menuTimKiemHD,  menuThongKeHD);
-//        MenuItem menuPhongBan = new MenuItem(iconPB, "Quản lý công nhân", null, menuPB1, menuPB2, menuPB3);
-//        MenuItem menuCongTrinh = new MenuItem(iconHome, "Công trình", null, menuCT1);
-//        MenuItem menuAdmin = new MenuItem(iconAdmin, "Admin", null, menuadmin1);
+        Menu menuNhanVien = new Menu(iconNhanVien, "Nhân Viên", null, menuDSBH);
+
         
         addMenu(menuSanPham, menuKhachHang, menuNCC, menuHoaDon, menuDonDatHang, menuNhanVien, menuTaiKhoan);
    
