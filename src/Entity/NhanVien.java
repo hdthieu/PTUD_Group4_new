@@ -14,8 +14,6 @@ public class NhanVien {
     private String maNhanVien;
     private String tenNhanVien;
     private String chucVu;
-
-   
     private boolean gioiTinh;
     private int SDT;
     private Date ngaySinh;

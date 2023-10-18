@@ -11,12 +11,12 @@ CREATE TABLE KhachHang(
 CREATE TABLE NhanVien(
     maNhanVien varchar(10) PRIMARY KEY ,
     tenNhanVien nvarchar(25) NOT NULL,
-    diaChi nvarchar(30) NOT NULL,
-    soDienThoai int NOT NULL,
 	gioiTinh nvarchar(5) CHECK (gioiTinh IN (N'Nam', N'Nữ')),
     ngaySinh Date,
-    hinhAnh VARCHAR(MAX),
-	chucVu nvarchar(20) NOT NULL
+	chucVu nvarchar(20) NOT NULL,
+	soDienThoai int NOT NULL,
+	diaChi nvarchar(30) NOT NULL,
+	hinhAnh VARCHAR(MAX),
 );
 
 CREATE TABLE TaiKhoan(
@@ -30,8 +30,9 @@ CREATE TABLE TaiKhoan(
 CREATE TABLE NhaCungCap(
 	maNhaCungCap varchar(15) PRIMARY KEY,
 	tenNhaCungCap nvarchar(25) NOT NULL,
-	diaChi nvarchar(30) NOT NULL,
 	soDienThoai int NOT NULL,
+	diaChi nvarchar(30) NOT NULL,
+	
 );
 
 CREATE TABLE SanPham (
@@ -111,10 +112,10 @@ VALUES (N'nguyenvan', '123', N'Quản Lý', 'QL001'),
 (N'laivantao', '123', N'Nhân Viên Bán Hàng', 'NV002')
 
 -- Thêm dữ liệu vào bảng NhaCungCap
-INSERT INTO NhaCungCap (maNhaCungCap, tenNhaCungCap, diaChi, soDienThoai)
+INSERT INTO NhaCungCap (maNhaCungCap, tenNhaCungCap,soDienThoai,diaChi)
 VALUES 
-  ('NCC001', N'Công Ty Quần Jean', N'789 Hoàng Vân, Đồng Tháp', 987654321),
-  ('NCC002', N'Công Ty Áo Yame', N'456 Lê Văn Việt, HCM', 123456789); 
+  ('NCC001', N'Công Ty Quần Jean', 987654321,N'789 Hoàng Vân, Đồng Tháp'),
+  ('NCC002', N'Công Ty Áo Yame',123456789, N'456 Lê Văn Việt, HCM' ); 
 
 -- Thêm dữ liệu vào bảng SanPham
 INSERT INTO SanPham (maSP, tenSP, giaBan, giaNhap, soLuong, maloaiSP, maNhaCungCap, hinhAnh)
