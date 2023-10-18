@@ -4,6 +4,7 @@
  */
 package Main;
 
+import GUI.GUI_HomeMain;
 import GUI.Login;
 
 /**
@@ -17,7 +18,7 @@ public class test {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Login d = new Login();
+        GUI_HomeMain d = new GUI_HomeMain();
         d.setLocationRelativeTo(null);
         d.setVisible(true);
         

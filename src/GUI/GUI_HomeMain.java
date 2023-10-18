@@ -1,11 +1,7 @@
 
 package GUI;
 
-//import GUI.GUI_DonHang;
-import menu.Menu;
-import GUI.GUI_PhieuThongKe;
 import GUI.GUI_QuanLySP;
-import GUI.GUI_ThongKeSP;
 import GUI.GUI_TimKiemSP;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,7 +37,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 public class GUI_HomeMain extends javax.swing.JFrame {
 
-    
+    // Hello
 
     Connection conn;
     ResultSet rs;
@@ -71,9 +67,10 @@ public class GUI_HomeMain extends javax.swing.JFrame {
     public GUI_HomeMain() {
     initComponents();
     setLocationRelativeTo(null);
-    this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    execute();
-  // lỏ phú
+    this.setSize(new Dimension(1275, 840));
+    this.setLocationRelativeTo(null);
+
+  
 }
    
    public void scaleImage() {
@@ -84,232 +81,41 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         bgHome.setIcon(scaleIcon);
     }
    
-    private void execute() {
-        //icon
-        ImageIcon iconAccount = new ImageIcon(getClass().getResource("/img/icon_account.png"));
-        ImageIcon iconSubMenu = new ImageIcon(getClass().getResource("/img/icon_item.png"));
-        ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/img/icon_tke.png"));
-        ImageIcon iconHoaDon = new ImageIcon(getClass().getResource("/img/icon_order.png"));
-//        ImageIcon iconDangXuat = new ImageIcon(getClass().getResource("/img/icon_exit.png"));
-        ImageIcon iconNhanVien = new ImageIcon(getClass().getResource("/img/icon_admin.png"));
-        ImageIcon iconSupplier = new ImageIcon(getClass().getResource("/img/icon_supplier.png"));
-        ImageIcon iconProduct = new ImageIcon(getClass().getResource("/img/icon_product.png"));
-        ImageIcon iconCustomer = new ImageIcon(getClass().getResource("/img/icon_customer.png"));
-        ImageIcon icondonDHang = new ImageIcon(getClass().getResource("/img/icon_donDH.png"));
-        
-                                //create menu
-        // menu item sản phẩm
-        Menu menuQLySP  = new Menu(iconSubMenu, "Quản Lý Sản phẩm", new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_QuanLySP());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        
-        //menu item Tìm Kiếm Sản Phẩm
-        Menu menuTimKiemSP = new Menu(iconSubMenu, "Tìm Kiếm Sản phẩm", new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_TimKiemSP());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        
-        //menu item Thống kê Sản Phẩm
-        Menu menuThongKeSP = new Menu(iconSubMenu, "Thống Kê Sản phẩm", new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_ThongKeSP());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        // menu Item Quản Lý Khách Hàng
-        Menu menuQuanLyKH = new Menu(iconSubMenu, "Quản Lý KH", new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_QuanLyKhachHang());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-         // menu Item Tìm Kiếm Khách Hàng
-        Menu menuTimKiemKH = new Menu(iconSubMenu, "Tìm Kiếm KH", new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_TimKiemKH());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        // menu thống kê Khách Hàng
-        Menu menuThongKeKH = new Menu(iconSubMenu, "Thống Kê KH", new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_ThongKeKH());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
 
-        // menu Nhà Cung Cấp
-        Menu menuNCC = new Menu(iconSupplier, "Nhà Cung Cấp", new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_NhaCungCap());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        //menuItem Lập Hóa Đơn
-        Menu menuLapHD = new Menu(iconSubMenu, "Lập Hóa Đơn", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_LapHoaDon());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        //menuItem Tìm Kiếm Hóa Đơn
-        Menu menuTimKiemHD = new Menu(iconSubMenu, "Tìm Kiếm Hóa Đơn", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_TimKiemHD());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        //menuItem Thống Kê Hóa Đơn
-        Menu menuThongKeHD = new Menu(iconSubMenu, "Thống Kê Hóa Đơn", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_ThongKeHoaDon());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        //menuItem Thống Kê Doanh Số Bán Hàng Của Nhân Viên
-        Menu menuDSBH = new Menu(iconSubMenu, "DSBH Của NV", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_ThongKeDoanhSoBHCuaNhanVien());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        // menu Đơn Đặt Hàng
-        Menu menuDonDatHang = new Menu(icondonDHang, "Đơn Đặt Hàng", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_DonDatHang());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-      
-        // menu Tài khoản
-        Menu menuTaiKhoan = new Menu(iconAccount, "Tài Khoản", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlBody.removeAll();
-                pnlBody.add(new GUI_TaiKhoan());
-                pnlBody.repaint();
-                pnlBody.revalidate();
-            }
-        });
-        
-        Menu menuSanPham = new Menu(iconProduct, "Sản Phẩm", null, menuQLySP, menuTimKiemSP, menuThongKeSP);
-        Menu menuKhachHang = new Menu(iconCustomer, "Khách Hàng", null, menuQuanLyKH, menuTimKiemKH , menuThongKeKH);
-        Menu menuHoaDon = new Menu(iconHoaDon, "Hóa Đơn", null, menuLapHD,menuTimKiemHD,  menuThongKeHD);
-        Menu menuNhanVien = new Menu(iconNhanVien, "Nhân Viên", null, menuDSBH);
 
-        
-        addMenu(menuSanPham, menuKhachHang, menuNCC, menuHoaDon, menuDonDatHang, menuNhanVien, menuTaiKhoan);
-   
-    }
-
-    private void addMenu(Menu... menu) {
-        for (int i = 0; i < menu.length; i++) {
-            menus.add(menu[i]);
-            ArrayList<Menu> subMenu = menu[i].getSubMenu();
-            for (Menu m : subMenu) {
-                addMenu(m);
-            }
-        }
-        menus.revalidate();
-    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlMenu = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        menus = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        LOGO = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         pnlBody = new javax.swing.JPanel();
         bgHome = new javax.swing.JLabel();
+        LOGO = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuSP = new javax.swing.JMenu();
+        menuQLSP = new javax.swing.JMenuItem();
+        menuTKSP = new javax.swing.JMenuItem();
+        menuQLNCC = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuQLKH = new javax.swing.JMenuItem();
+        menuTKKH = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        menuLHD = new javax.swing.JMenuItem();
+        menuTKHD = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuDDH = new javax.swing.JMenuItem();
+        menuTKDDH = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        menuQLNV = new javax.swing.JMenuItem();
+        menuTKNV = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuTKhoan = new javax.swing.JMenu();
+        menuQLTK = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fashion_Phần Mềm Quản Lý Bán Hàng Quần Áo Thời Trang");
         setBackground(new java.awt.Color(0, 204, 51));
-
-        pnlMenu.setBackground(new java.awt.Color(102, 102, 102));
-        pnlMenu.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setToolTipText("");
-        jScrollPane1.setHorizontalScrollBar(null);
-
-        menus.setBackground(new java.awt.Color(102, 102, 102));
-        menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
-        jScrollPane1.setViewportView(menus);
-
-        pnlMenu.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        jPanel5.setBackground(new java.awt.Color(102, 102, 102));
-
-        LOGO.setBackground(new java.awt.Color(0, 204, 153));
-        LOGO.setFont(new java.awt.Font("Segoe UI Symbol", 1, 30)); // NOI18N
-        LOGO.setForeground(new java.awt.Color(255, 255, 255));
-        LOGO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LOGO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
-        LOGO.setText("FashionPro");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LOGO, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LOGO, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-        );
-
-        pnlMenu.add(jPanel5, java.awt.BorderLayout.PAGE_START);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        pnlMenu.add(jPanel1, java.awt.BorderLayout.PAGE_END);
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         pnlBody.setBackground(new java.awt.Color(102, 102, 102));
         pnlBody.setLayout(new java.awt.BorderLayout());
@@ -318,38 +124,304 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         bgHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bgHome_new.png"))); // NOI18N
         pnlBody.add(bgHome, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 940, Short.MAX_VALUE)
-                    .addComponent(pnlMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+        LOGO.setBackground(new java.awt.Color(0, 204, 153));
+        LOGO.setFont(new java.awt.Font("Segoe UI Symbol", 1, 30)); // NOI18N
+        LOGO.setForeground(new java.awt.Color(255, 255, 255));
+        LOGO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LOGO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
+        LOGO.setText("FashionPro");
+        pnlBody.add(LOGO, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(pnlBody);
+
+        menuSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_product.png"))); // NOI18N
+        menuSP.setText("Sản Phẩm");
+        menuSP.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+
+        menuQLSP.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuQLSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuQLSP.setText("Quản Lý Sản Phẩm");
+        menuQLSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuQLSPActionPerformed(evt);
+            }
+        });
+        menuSP.add(menuQLSP);
+
+        menuTKSP.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuTKSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuTKSP.setText("Tìm Kiếm Sản Phẩm");
+        menuTKSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTKSPActionPerformed(evt);
+            }
+        });
+        menuSP.add(menuTKSP);
+
+        menuQLNCC.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuQLNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuQLNCC.setText("Quản Lý Nhà Cung Cấp");
+        menuQLNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuQLNCCActionPerformed(evt);
+            }
+        });
+        menuSP.add(menuQLNCC);
+
+        jMenuBar1.add(menuSP);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_KH.png"))); // NOI18N
+        jMenu2.setText("Khách Hàng");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+
+        menuQLKH.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuQLKH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuQLKH.setText("Quản Lý Khách Hàng ");
+        menuQLKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuQLKHActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuQLKH);
+
+        menuTKKH.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuTKKH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuTKKH.setText("Tìm Kiếm Khách Hàng");
+        menuTKKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTKKHActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuTKKH);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_hoaDon.png"))); // NOI18N
+        jMenu3.setText("Hóa Đơn");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+
+        menuLHD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuLHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuLHD.setText("Lập Hóa Đơn");
+        menuLHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLHDActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuLHD);
+
+        menuTKHD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuTKHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuTKHD.setText("Tìm Kiếm Hóa Đơn");
+        menuTKHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTKHDActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuTKHD);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_cart.png"))); // NOI18N
+        jMenu1.setText("Đơn Đặt Hàng");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+
+        menuDDH.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuDDH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuDDH.setText("Lập Đơn Đặt Hàng");
+        menuDDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDDHActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuDDH);
+
+        menuTKDDH.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuTKDDH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuTKDDH.setText("Tìm Kiếm Đơn Đặt Hàng");
+        menuTKDDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTKDDHActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuTKDDH);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_staff.png"))); // NOI18N
+        jMenu4.setText("Nhân Viên");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+
+        menuQLNV.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuQLNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuQLNV.setText("Quản Lý Nhân VIên");
+        menuQLNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuQLNVActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuQLNV);
+
+        menuTKNV.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuTKNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuTKNV.setText("Tìm Kiếm Nhân Viên");
+        menuTKNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTKNVActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuTKNV);
+
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        jMenuItem1.setText("Thống Kê");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu4);
+
+        menuTKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_account.png"))); // NOI18N
+        menuTKhoan.setText("Tài Khoản");
+        menuTKhoan.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+
+        menuQLTK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuQLTK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuQLTK.setText("Quản Lý Tài Khoản");
+        menuQLTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuQLTKActionPerformed(evt);
+            }
+        });
+        menuTKhoan.add(menuQLTK);
+
+        jMenuBar1.add(menuTKhoan);
+
+        setJMenuBar(jMenuBar1);
 
         setSize(new java.awt.Dimension(1493, 857));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuQLNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQLNCCActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_NhaCungCap());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuQLNCCActionPerformed
+
+    private void menuQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQLSPActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_QuanLySP());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuQLSPActionPerformed
+
+    private void menuTKSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKSPActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TimKiemSP());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuTKSPActionPerformed
+
+    private void menuQLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQLKHActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_QuanLyKhachHang());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuQLKHActionPerformed
+
+    private void menuTKKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKKHActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TimKiemKH());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuTKKHActionPerformed
+
+    private void menuLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLHDActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_LapHoaDon());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuLHDActionPerformed
+
+    private void menuTKHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKHDActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TimKiemHD());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuTKHDActionPerformed
+
+    private void menuDDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDDHActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_LapDonDatHang());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuDDHActionPerformed
+
+    private void menuTKDDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKDDHActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TimKiemDonDatHang());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuTKDDHActionPerformed
+
+    private void menuQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQLNVActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_QuanLyNhanVien());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuQLNVActionPerformed
+
+    private void menuTKNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKNVActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TimKiemNhanVien());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuTKNVActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_ThongKe());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menuQLTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQLTKActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TaiKhoan());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuQLTKActionPerformed
     
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LOGO;
     private javax.swing.JLabel bgHome;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel menus;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem menuDDH;
+    private javax.swing.JMenuItem menuLHD;
+    private javax.swing.JMenuItem menuQLKH;
+    private javax.swing.JMenuItem menuQLNCC;
+    private javax.swing.JMenuItem menuQLNV;
+    private javax.swing.JMenuItem menuQLSP;
+    private javax.swing.JMenuItem menuQLTK;
+    private javax.swing.JMenu menuSP;
+    private javax.swing.JMenuItem menuTKDDH;
+    private javax.swing.JMenuItem menuTKHD;
+    private javax.swing.JMenuItem menuTKKH;
+    private javax.swing.JMenuItem menuTKNV;
+    private javax.swing.JMenuItem menuTKSP;
+    private javax.swing.JMenu menuTKhoan;
     private javax.swing.JPanel pnlBody;
-    private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables
 }
