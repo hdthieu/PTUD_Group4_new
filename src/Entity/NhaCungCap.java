@@ -57,6 +57,14 @@ public class NhaCungCap {
         
     }
 
+    public NhaCungCap(String maNhaCungCap) {
+        this.maNhaCungCap = maNhaCungCap;
+    }
+
+    public NhaCungCap() {
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 5;
