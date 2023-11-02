@@ -42,27 +42,6 @@ public class GUI_HomeMain extends javax.swing.JFrame {
     Connection conn;
     ResultSet rs;
 
-//    public void clock() {
-//        javax.swing.Timer Time;
-//
-//        //date  
-//        Date d = new Date();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//        String date = sdf.format(d);
-//
-//        //time
-//        Time = new javax.swing.Timer(0, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Date dt = new Date();
-//                SimpleDateFormat st = new SimpleDateFormat("HH:mm:ss a");
-//                String time = st.format(dt);
-//
-//                lblClock.setText("Ngày: " + date + "    Giờ: " + time);
-//            }
-//        });
-//        Time.start();
-//    }
 
     public GUI_HomeMain() {
     initComponents();
@@ -103,13 +82,11 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         menuLHD = new javax.swing.JMenuItem();
         menuTKHD = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        menuDDH = new javax.swing.JMenuItem();
-        menuTKDDH = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         menuQLNV = new javax.swing.JMenuItem();
         menuTKNV = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        menuDonDH = new javax.swing.JMenuItem();
         menuTKhoan = new javax.swing.JMenu();
         menuQLTK = new javax.swing.JMenuItem();
 
@@ -233,32 +210,6 @@ public class GUI_HomeMain extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_cart.png"))); // NOI18N
-        jMenu1.setText("Đơn Đặt Hàng");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-
-        menuDDH.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        menuDDH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
-        menuDDH.setText("Lập Đơn Đặt Hàng");
-        menuDDH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDDHActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuDDH);
-
-        menuTKDDH.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        menuTKDDH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
-        menuTKDDH.setText("Tìm Kiếm Đơn Đặt Hàng");
-        menuTKDDH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuTKDDHActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuTKDDH);
-
-        jMenuBar1.add(jMenu1);
-
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_staff.png"))); // NOI18N
         jMenu4.setText("Nhân Viên");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
@@ -292,6 +243,16 @@ public class GUI_HomeMain extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem1);
+
+        menuDonDH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuDonDH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuDonDH.setText("Đơn Đặt Hàng");
+        menuDonDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDonDHActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuDonDH);
 
         jMenuBar1.add(jMenu4);
 
@@ -366,20 +327,6 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         pnlBody.revalidate();
     }//GEN-LAST:event_menuTKHDActionPerformed
 
-    private void menuDDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDDHActionPerformed
-        pnlBody.removeAll();
-        pnlBody.add(new GUI_LapDonDatHang());
-        pnlBody.repaint();
-        pnlBody.revalidate();
-    }//GEN-LAST:event_menuDDHActionPerformed
-
-    private void menuTKDDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKDDHActionPerformed
-        pnlBody.removeAll();
-        pnlBody.add(new GUI_TimKiemDonDatHang());
-        pnlBody.repaint();
-        pnlBody.revalidate();
-    }//GEN-LAST:event_menuTKDDHActionPerformed
-
     private void menuQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQLNVActionPerformed
         pnlBody.removeAll();
         pnlBody.add(new GUI_QuanLyNhanVien());
@@ -408,25 +355,33 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         pnlBody.revalidate();
     }//GEN-LAST:event_menuQLTKActionPerformed
 
+<<<<<<< HEAD
     private void menuTKNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKNCCActionPerformed
         pnlBody.removeAll();
         pnlBody.add(new GUI_TimKiemNhaCungCap());
         pnlBody.repaint();
         pnlBody.revalidate();
     }//GEN-LAST:event_menuTKNCCActionPerformed
+=======
+    private void menuDonDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDonDHActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_DonDatHang());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuDonDHActionPerformed
+>>>>>>> 56874df7d774b0ee4439d0a86bab37904b7d312d
     
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LOGO;
     private javax.swing.JLabel bgHome;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem menuDDH;
+    private javax.swing.JMenuItem menuDonDH;
     private javax.swing.JMenuItem menuLHD;
     private javax.swing.JMenuItem menuQLKH;
     private javax.swing.JMenuItem menuQLNCC;
@@ -434,7 +389,6 @@ public class GUI_HomeMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuQLSP;
     private javax.swing.JMenuItem menuQLTK;
     private javax.swing.JMenu menuSP;
-    private javax.swing.JMenuItem menuTKDDH;
     private javax.swing.JMenuItem menuTKHD;
     private javax.swing.JMenuItem menuTKKH;
     private javax.swing.JMenuItem menuTKNCC;

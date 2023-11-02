@@ -39,6 +39,7 @@ public class NhanVien_DAO {
                     
                 );
                 dsNhanVien.add(nhanVien);
+                System.out.println("cc");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,20 +104,20 @@ public class NhanVien_DAO {
         return n > 0;
     }
 
-    public boolean checkTrungMaNV(String maNV) {
-        Connection con = ConnectSQL.getInstance().getConnection();
-        PreparedStatement stmt = null;
-        try {
-            String sql = "SELECT * FROM NhanVien WHERE MaNV = ?";
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, maNV);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public boolean checkTrungMaNV(String maNV) {
+//        Connection con = ConnectSQL.getInstance().getConnection();
+//        PreparedStatement stmt = null;
+//        try {
+//            String sql = "SELECT * FROM NhanVien WHERE MaNV = ?";
+//            stmt = con.prepareStatement(sql);
+//            stmt.setString(1, maNV);
+//            ResultSet rs = stmt.executeQuery();
+//            if (rs.next()) {
+//                return true;
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 }
