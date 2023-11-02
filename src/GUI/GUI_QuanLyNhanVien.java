@@ -1,8 +1,25 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI;
+
+import Connection.ConnectSQL;
+import DAO.NhanVien_DAO;
+import Entity.NhanVien;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,8 +30,44 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
     /**
      * Creates new form NhanVien
      */
+    String filename = null;
+    byte[] person_image = null;
+    NhanVien_DAO nhanVienDAO = new NhanVien_DAO();
+    private DefaultTableModel dataModel;
+
     public GUI_QuanLyNhanVien() {
         initComponents();
+        dataModel = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Ngày Sinh", "Số Điện Thoại", "Địa Chỉ", "Chức Vụ", "Hình Ảnh"
+                }
+        );
+        TableDSNhanVien.setModel(dataModel);
+        ConnectSQL.getInstance().connect();
+        updateEmployeeTableData();
+    }
+
+    private void updateEmployeeTableData() {
+        NhanVien_DAO employeeDAO = new NhanVien_DAO();
+        List<NhanVien> employees = employeeDAO.docTuBang(); // Implement this method in your DAO class to fetch employees.
+
+        // Clear the existing data in the table (if needed).
+        dataModel.setRowCount(0);
+
+        for (NhanVien employee : employees) {
+            String[] rowData = {
+                employee.getMaNhanVien(),
+                employee.getTenNhanVien(),
+                employee.isGioiTinh() ? "Nam" : "Nữ",
+                employee.getNgaySinh().toString(),
+                String.valueOf(employee.getSDT()),
+                employee.getDiaChi(),
+                employee.getChucVu()
+            };
+            dataModel.addRow(rowData);
+        }
+        TableDSNhanVien.setModel(dataModel);
     }
 
     /**
@@ -29,40 +82,42 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableDSNhanVien = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTenNhanVien = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtMaNhanVien = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField3 = new javax.swing.JTextField();
+        txtDiaChi = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtSDT = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dateNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboChucVu = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnThemNhanVien = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        lblAnh = new javax.swing.JLabel();
+        btnChonAnh = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        cboChucVu1 = new javax.swing.JComboBox<>();
+        cboChucVu2 = new javax.swing.JComboBox<>();
+        cboGioiTinh = new javax.swing.JComboBox<>();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableDSNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -73,7 +128,12 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
                 "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Ngày Sinh", "Số Điện Thoại", "Địa Chỉ", "Chức Vụ", "Hình Ảnh"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        TableDSNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableDSNhanVienMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TableDSNhanVien);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,22 +181,22 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
         jLabel2.setText("Mã Nhân Viên");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 48, 102, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtTenNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtTenNhanVienActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 45, 220, -1));
+        jPanel3.add(txtTenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 45, 220, -1));
 
         jLabel3.setText("Tên Nhân Viên");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 48, 102, -1));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtMaNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtMaNhanVienActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 45, 214, -1));
+        jPanel3.add(txtMaNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 45, 214, -1));
 
         jLabel4.setText("Số Điện Thoại");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 177, 102, -1));
@@ -144,62 +204,62 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
         jLabel5.setText("Giới Tính");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 104, 102, -1));
 
-        jRadioButton1.setText("Nam");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        txtDiaChi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                txtDiaChiActionPerformed(evt);
             }
         });
-        jPanel3.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 102, -1, -1));
-
-        jRadioButton2.setText("Nữ");
-        jPanel3.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 102, -1, -1));
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 174, 220, -1));
+        jPanel3.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 174, 220, -1));
 
         jLabel6.setText("Địa Chỉ");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 177, 102, -1));
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtSDT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtSDTActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 174, 217, -1));
+        jPanel3.add(txtSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 174, 217, -1));
 
         jLabel7.setText("Ngày Sinh");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 104, 102, -1));
-        jPanel3.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 101, 220, -1));
+        jPanel3.add(dateNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 101, 220, -1));
 
         jLabel8.setText("Chức Vụ");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 243, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán Hàng", "Nhân Viên Thống Kê", "Nhân Viên Quản Lý" }));
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 217, -1));
+        cboChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán Hàng", "Nhân Viên Thống Kê", "Nhân Viên Quản Lý" }));
+        jPanel3.add(cboChucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 217, -1));
 
         jLabel9.setText("Chức Năng");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 309, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_add.png"))); // NOI18N
-        jButton1.setText("Thêm");
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, 30));
-
-        jButton2.setText("Làm Mới");
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 110, 30));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_change.png"))); // NOI18N
-        jButton3.setText("Cập Nhật");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnThemNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_add.png"))); // NOI18N
+        btnThemNhanVien.setText("Thêm");
+        btnThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnThemNhanVienActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, -1, 30));
+        jPanel3.add(btnThemNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, 30));
+
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_refesh.png"))); // NOI18N
+        btnLamMoi.setText("Làm Mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 120, 30));
+
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_change.png"))); // NOI18N
+        btnSua.setText("Cập Nhật");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, -1, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_remove.png"))); // NOI18N
         jButton4.setText("Xóa");
@@ -208,7 +268,7 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, 30));
+        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 90, 30));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -217,61 +277,247 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 208, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 228, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 30, 210, 230));
 
-        jButton5.setText("Chọn Ảnh");
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 290, -1, -1));
+        btnChonAnh.setText("Chọn Ảnh");
+        btnChonAnh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnChonAnhMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnChonAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 290, -1, -1));
 
         jLabel10.setText("Hình Ảnh Nhân Viên");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, -1, -1));
 
+        cboChucVu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán Hàng", "Nhân Viên Thống Kê", "Nhân Viên Quản Lý" }));
+        jPanel3.add(cboChucVu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 217, -1));
+
+        cboChucVu2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán Hàng", "Nhân Viên Thống Kê", "Nhân Viên Quản Lý" }));
+        jPanel3.add(cboChucVu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 217, -1));
+
+        cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
+        jPanel3.add(cboGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 210, -1));
+
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 1190, 340));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtSDTActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtDiaChiActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void txtMaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNhanVienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_txtMaNhanVienActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtTenNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenNhanVienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtTenNhanVienActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        int row = TableDSNhanVien.getSelectedRow();
+        if (row >= 0) {
+            NhanVien employee = revertNVFormTextFile();
+            if (employee != null) {
+                if (nhanVienDAO.update(employee)) {
+                    TableDSNhanVien.setValueAt(employee.getMaNhanVien(), row, 0);
+                    TableDSNhanVien.setValueAt(employee.getTenNhanVien(), row, 1);
+                    TableDSNhanVien.setValueAt(employee.isGioiTinh() ? "Nam" : "Nữ", row, 2);
+                    TableDSNhanVien.setValueAt(employee.getNgaySinh().toString(), row, 3);
+                    TableDSNhanVien.setValueAt(employee.getSDT(), row, 4);
+                    TableDSNhanVien.setValueAt(employee.getDiaChi(), row, 5);
+                    TableDSNhanVien.setValueAt(employee.getChucVu(), row, 6);
+                }
+            }
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        int row = TableDSNhanVien.getSelectedRow();
+        if (row >= 0) {
+            String maNhanVien = TableDSNhanVien.getValueAt(row, 0).toString();
+
+            if (nhanVienDAO.delete(maNhanVien)) {
+                dataModel.removeRow(row);
+            }
+        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnChonAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChonAnhMouseClicked
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(), Image.SCALE_SMOOTH));
+        lblAnh.setIcon(imageIcon);
+        try {
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum);
+            }
+            person_image = bos.toByteArray();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_btnChonAnhMouseClicked
+
+    private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
+        try {
+            NhanVien employee = revertNVFormTextFile();
+            if (NhanVien_DAO.create(employee)) {
+                Object[] rowData = {
+                    employee.getMaNhanVien(),
+                    employee.getTenNhanVien(),
+                    employee.isGioiTinh() ? "Nam" : "Nữ",
+                    employee.getNgaySinh().toString(),
+                    employee.getSDT(),
+                    employee.getDiaChi(),
+                    employee.getChucVu(),
+                    employee.getHinhAnh()
+                };
+                dataModel.addRow(rowData);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnThemNhanVienActionPerformed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        clearEmployeeTextFields();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void TableDSNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableDSNhanVienMouseClicked
+        int row = TableDSNhanVien.getSelectedRow();
+        if (row >= 0) {
+            txtMaNhanVien.setText(TableDSNhanVien.getValueAt(row, 0).toString());
+            txtTenNhanVien.setText(TableDSNhanVien.getValueAt(row, 1).toString());
+            // Lấy giới tính từ bảng và đặt giá trị cho comboBox gioiTinh
+            String gioiTinhStr = TableDSNhanVien.getValueAt(row, 2).toString();
+            if (gioiTinhStr.equals("Nam")) {
+                cboGioiTinh.setSelectedItem("Nam");
+            } else {
+                cboGioiTinh.setSelectedItem("Nữ");
+            }
+            // Lấy ngày sinh từ bảng và đặt giá trị cho dateChooser
+            String ngaySinhStr = TableDSNhanVien.getValueAt(row, 3).toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date ngaySinh = sdf.parse(ngaySinhStr);
+                dateNgaySinh.setDate(ngaySinh);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+            txtSDT.setText(TableDSNhanVien.getValueAt(row, 4).toString());
+            txtDiaChi.setText(TableDSNhanVien.getValueAt(row, 5).toString());
+            // Đặt giá trị của comboBox chucVu tương tự như giới tính
+            String chucVuStr = TableDSNhanVien.getValueAt(row, 6).toString();
+            cboChucVu.setSelectedItem(chucVuStr);
+//            NhanVien nv=NhanVien();
+//            byte[] img = nv.getHinhAnh();
+//            lblAnh.setIcon(img != null && img.length > 0 ? new ImageIcon(img) : null);
+
+        }
+    }//GEN-LAST:event_TableDSNhanVienMouseClicked
+    private NhanVien revertNVFormTextFile() {
+        String maNhanVien = txtMaNhanVien.getText();
+        if (!maNhanVien.matches("^NV\\d{3}$")) {
+            JOptionPane.showMessageDialog(null, "Mã nhân viên không hợp lệ", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        String tenNhanVien = txtTenNhanVien.getText();
+        if (tenNhanVien.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên nhân viên không được để trống", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        String gioiTinhStr = cboGioiTinh.getSelectedItem().toString();
+        boolean gioiTinh = gioiTinhStr.equals("Nam"); // Sửa tùy theo việc sử dụng chuỗi hoặc boolean cho giới tính.
+
+        Date ngaySinh = null;
+
+        try {
+            ngaySinh = dateNgaySinh.getDate();
+
+            if (ngaySinh == null) {
+                throw new IllegalArgumentException("Ngày sinh không được để trống");
+            }
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String ngaySinhStr = dateFormat.format(ngaySinh);
+
+            // Kiểm tra ngày sinh có đúng định dạng 'yyyy-MM-dd' hay không
+            if (!ngaySinhStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                throw new IllegalArgumentException("Ngày sinh không đúng định dạng 'yyyy-MM-dd'");
+            }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi: " + e.getMessage(), "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        String sdtStr = txtSDT.getText();
+//        if (!sdtStr.matches("^[0-9]{11}$")) {
+//            JOptionPane.showMessageDialog(null, "Số điện thoại phải có 10 số", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+//            return null;
+//        }
+
+        int sdt = Integer.parseInt(sdtStr);
+
+        String diaChi = txtDiaChi.getText();
+        if (diaChi.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Địa chỉ không được để trống", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        String chucVu = cboChucVu.getSelectedItem().toString();
+
+        // Tạo đối tượng NhanVien chỉ khi tất cả kiểm tra đã đúng.
+        return new NhanVien(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi, chucVu, null);
+    }
+
+    private void clearEmployeeTextFields() {
+        txtMaNhanVien.setText("");
+        txtTenNhanVien.setText("");
+        cboChucVu.setSelectedIndex(0);
+        cboGioiTinh.setSelectedIndex(0);
+        txtSDT.setText("");
+        txtDiaChi.setText("");
+        dateNgaySinh.setDate(null);
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TableDSNhanVien;
+    private javax.swing.JButton btnChonAnh;
+    private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThemNhanVien;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> cboChucVu;
+    private javax.swing.JComboBox<String> cboChucVu1;
+    private javax.swing.JComboBox<String> cboChucVu2;
+    private javax.swing.JComboBox<String> cboGioiTinh;
+    private com.toedter.calendar.JDateChooser dateNgaySinh;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -286,13 +532,12 @@ public class GUI_QuanLyNhanVien extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lblAnh;
+    private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtMaNhanVien;
+    private javax.swing.JTextField txtSDT;
+    private javax.swing.JTextField txtTenNhanVien;
     // End of variables declaration//GEN-END:variables
+
 }

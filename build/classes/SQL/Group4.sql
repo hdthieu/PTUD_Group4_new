@@ -9,21 +9,22 @@ CREATE TABLE KhachHang(
 );
 
 CREATE TABLE NhanVien(
-    maNhanVien varchar(10) PRIMARY KEY ,
-    tenNhanVien nvarchar(25) NOT NULL,
-	gioiTinh nvarchar(5) CHECK (gioiTinh IN (N'Nam', N'Nữ')),
-    ngaySinh Date,
-	chucVu nvarchar(20) NOT NULL,
+        maNhanVien varchar(10) PRIMARY KEY ,
+        tenNhanVien nvarchar(25) NOT NULL,
+	gioiTinh nvarchar(5),
+        ngaySinh Date,
 	soDienThoai int NOT NULL,
 	diaChi nvarchar(30) NOT NULL,
-	hinhAnh VARCHAR(MAX),
+	chucVu nvarchar(20) NOT NULL,
+	hinhAnh image NULL
 );
 
 CREATE TABLE TaiKhoan(
-	tenTaiKhoan varchar(15) PRIMARY KEY,
-	matKhau varchar(10) NOT NULL,
-	quyenTruyCap nvarchar(MAX) NOT NULL,
 	maNhanVien varchar(10) ,
+	tenNhanVien nvarchar(MAX),
+	tenTaiKhoan varchar(30) PRIMARY KEY,
+	matKhau varchar(30) NOT NULL,
+	quyenTruyCap nvarchar(MAX) NOT NULL,
 	FOREIGN KEY (maNhanVien) REFERENCES NhanVien(maNhanVien)
 );
 
@@ -101,21 +102,33 @@ VALUES
   ('KH002', N'Tran Thi Bích', N'256 Nguyễn Trãi, Hà Nội', 987654321, N'Nữ');
 
 -- Thêm dữ liệu vào bảng NhanVien
-INSERT INTO NhanVien (maNhanVien, tenNhanVien, diaChi, soDienThoai, gioiTinh, ngaySinh, hinhAnh, chucVu)
-VALUES 
-  ('QL001', N'Nguyễn Văn', N'Quận Gò Vấp, HCM', 0987563874, N'Nam', '1990-01-15', 'link_hinh_anh1', N'Quản Lý'), 
-  ('NV002', N'Lại Văn Tạo', N'Quận Bình Thạnh, HCM', 123456789, N'Nữ', '1995-05-05', 'path/to/avatar2.jpg', N'Nhân Viên Bán Hàng');
+-- Thêm dữ liệu mẫu vào bảng NhanVien
+INSERT INTO NhanVien (maNhanVien, tenNhanVien, gioiTinh, ngaySinh, soDienThoai, diaChi, chucVu, hinhAnh)
+VALUES
+    ('NV001', N'Nguyễn Văn A', N'Nam', '1990-01-15', 123456789, N'Hà Nội', N'Nhân Viên Quản Lý', NULL),
+    ('NV002', N'Nguyễn Thị B', N'Nữ', '1995-03-20', 987654321, N'Hồ Chí Minh', N'Nhân Viên Quản Lý', NULL),
+    ('NV003', N'Trần Văn C', N'Nam', '1985-05-10', 111222333, N'Đà Nẵng', N'Nhân Viên Thống Kê', NULL),
+    ('NV004', N'Lê Thị D', N'Nữ', '1998-12-05', 999888777, N'Hải Phòng', N'Nhân viên Bán Hàng', NULL);
 
 -- Thêm dữ liệu vào bảng TaiKhoan
-INSERT INTO TaiKhoan (tenTaiKhoan, matKhau, quyenTruyCap, maNhanVien)
-VALUES (N'nguyenvan', '123', N'Quản Lý', 'QL001'), 
-(N'laivantao', '123', N'Nhân Viên Bán Hàng', 'NV002')
+INSERT INTO TaiKhoan (maNhanVien,tenNhanVien,tenTaiKhoan, matKhau, quyenTruyCap)
+VALUES ('NV001',N'Nguyễn Văn A',N'nguyenvan', '123', N'Nhân Viên Quản Lý'), 
+('NV002',N'Nguyễn Thị B',N'nguyenthib', '123', N'Nhân Viên Bán Hàng')
 
 -- Thêm dữ liệu vào bảng NhaCungCap
-INSERT INTO NhaCungCap (maNhaCungCap, tenNhaCungCap,soDienThoai,diaChi)
-VALUES 
-  ('NCC001', N'Công Ty Quần Jean', 987654321,N'789 Hoàng Vân, Đồng Tháp'),
-  ('NCC002', N'Công Ty Áo Yame',123456789, N'456 Lê Văn Việt, HCM' ); 
+INSERT INTO NhaCungCap (maNhaCungCap, tenNhaCungCap, soDienThoai, diaChi)
+VALUES
+  ('NCC001', N'Gucci', 0987654321, N'Địa chỉ 1'),
+  ('NCC002', N'Yame', 0123456789, N'Địa chỉ 2'),
+  ('NCC003', N'Dior', 0123454789, N'Địa chỉ 3'),
+  ('NCC004', N'LV', 0123456739, N'Địa chỉ 4'),
+  ('NCC005', N'Adidas', 0123426789, N'Địa chỉ 5'),
+  ('NCC006', N'Nike', 0323456789, N'Địa chỉ 6'),
+  ('NCC007', N'Tommy', 0126456789, N'Địa chỉ 7'),
+  ('NCC008', N'Vans', 0123456789, N'Địa chỉ 8'),
+  ('NCC009', N'Converse', 0123476789, N'Địa chỉ 9'),
+  ('NCC010', N'Ananas', 0123466789, N'Địa chỉ 10');
+
 
 -- Thêm dữ liệu vào bảng SanPham
 INSERT INTO SanPham (maSP, tenSP, giaBan, giaNhap, soLuong, maloaiSP, maNhaCungCap, hinhAnh)

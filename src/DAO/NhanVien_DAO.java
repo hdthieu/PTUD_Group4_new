@@ -10,6 +10,7 @@ import Connection.ConnectSQL;
 
 import Entity.NhanVien;
 import java.util.Date;
+
 public class NhanVien_DAO {
 
     ArrayList<NhanVien> dsNhanVien;
@@ -19,20 +20,24 @@ public class NhanVien_DAO {
     }
 
     public ArrayList<NhanVien> docTuBang() {
+        ArrayList<NhanVien> dsNhanVien = new ArrayList<>();
         try {
             Connection con = ConnectSQL.getInstance().getConnection();
             String sql = "SELECT * FROM NhanVien";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                String maNV = rs.getString("maNhanVien"); 
-                String tenNV = rs.getString("tenNhanVien"); 
-                Boolean gioiTinh = rs.getBoolean("gioiTinh");
-                String diaChi = rs.getString("diaChi");
-                Integer SDT = rs.getInt("SDT");
-                Date ngaySinh = rs.getDate("ngaySinh"); 
-                String hinhAnh = rs.getString("hinhAnh");
-                NhanVien nhanVien = new NhanVien(maNV, tenNV, gioiTinh, SDT,ngaySinh,diaChi, hinhAnh);
+                NhanVien nhanVien = new NhanVien(
+                        rs.getString("maNhanVien"),
+                        rs.getString("tenNhanVien"),
+                        rs.getBoolean("gioiTinh"),
+                        rs.getDate("ngaySinh"),
+                        rs.getInt("soDienThoai"),
+                        rs.getString("diaChi"),
+                        rs.getString("chucVu"),
+                        rs.getBytes("hinhAnh")
+                    
+                );
                 dsNhanVien.add(nhanVien);
             }
         } catch (SQLException e) {
@@ -46,14 +51,16 @@ public class NhanVien_DAO {
         PreparedStatement stmt = null;
         int n = 0;
         try {
-            stmt = con.prepareStatement("INSERT INTO NhanVien (MaNV, TenNV, DiaChi, SDT, GioiTinh, NgaySinh, HinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO NhanVien (maNhanVien, tenNhanVien, gioiTinh, ngaySinh, soDienThoai, diaChi, chucVu, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, p.getMaNhanVien());
             stmt.setString(2, p.getTenNhanVien());
-            stmt.setString(3, p.getDiaChi());
-            stmt.setInt(4, p.getSDT());
-            stmt.setBoolean(5, p.getGioiTinh());
-            stmt.setDate(6, new java.sql.Date(p.getNgaySinh().getTime()));
-            stmt.setString(7, p.getHinhAnh());
+            stmt.setBoolean(3, p.isGioiTinh());
+            stmt.setDate(4, new java.sql.Date(p.getNgaySinh().getTime()));
+            stmt.setInt(5, p.getSDT());
+            stmt.setString(6, p.getDiaChi());
+            stmt.setString(7, p.getChucVu());
+            stmt.setBytes(8, p.getHinhAnh());
+
             n = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,14 +73,15 @@ public class NhanVien_DAO {
         PreparedStatement stmt = null;
         int n = 0;
         try {
-            stmt = con.prepareStatement("UPDATE NhanVien SET TenNV = ?, DiaChi = ?, SDT = ?, GioiTinh = ?, NgaySinh = ?, HinhAnh = ? WHERE MaNV = ?");
-            stmt.setString(1, p.getTenNhanVien());
-            stmt.setString(2, p.getDiaChi());
-            stmt.setInt(3, p.getSDT());
-            stmt.setBoolean(4, p.getGioiTinh());
-            stmt.setDate(5, new java.sql.Date(p.getNgaySinh().getTime()));
-            stmt.setString(6, p.getHinhAnh());
-            stmt.setString(7, p.getMaNhanVien());
+            stmt = con.prepareStatement("UPDATE NhanVien SET tenNhanVien = ?, gioiTinh = ?, ngaySinh = ?, soDienThoai = ?, diaChi = ?, chucVu = ?, hinhAnh = ? where maNhanVien = ?");
+            stmt.setString(1, p.getMaNhanVien());
+            stmt.setString(2, p.getTenNhanVien());
+            stmt.setBoolean(3, p.isGioiTinh());
+            stmt.setDate(4, new java.sql.Date(p.getNgaySinh().getTime()));
+            stmt.setInt(5, p.getSDT());
+            stmt.setString(6, p.getDiaChi());
+            stmt.setString(7, p.getChucVu());
+            stmt.setBytes(8, p.getHinhAnh());
             n = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,7 +94,7 @@ public class NhanVien_DAO {
         PreparedStatement stmt = null;
         int n = 0;
         try {
-            stmt = con.prepareStatement("DELETE FROM NhanVien WHERE MaNV = ?");
+            stmt = con.prepareStatement("DELETE FROM NhanVien WHERE maNhanVien = ?");
             stmt.setString(1, maNV);
             n = stmt.executeUpdate();
         } catch (SQLException e) {

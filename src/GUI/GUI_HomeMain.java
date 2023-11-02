@@ -96,6 +96,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         menuQLSP = new javax.swing.JMenuItem();
         menuTKSP = new javax.swing.JMenuItem();
         menuQLNCC = new javax.swing.JMenuItem();
+        menuTKNCC = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuQLKH = new javax.swing.JMenuItem();
         menuTKKH = new javax.swing.JMenuItem();
@@ -167,6 +168,16 @@ public class GUI_HomeMain extends javax.swing.JFrame {
             }
         });
         menuSP.add(menuQLNCC);
+
+        menuTKNCC.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuTKNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuTKNCC.setText("Tìm Kiếm Nhà Cung Cấp");
+        menuTKNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTKNCCActionPerformed(evt);
+            }
+        });
+        menuSP.add(menuTKNCC);
 
         jMenuBar1.add(menuSP);
 
@@ -396,6 +407,13 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         pnlBody.repaint();
         pnlBody.revalidate();
     }//GEN-LAST:event_menuQLTKActionPerformed
+
+    private void menuTKNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKNCCActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TimKiemNhaCungCap());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuTKNCCActionPerformed
     
 
     
@@ -419,6 +437,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuTKDDH;
     private javax.swing.JMenuItem menuTKHD;
     private javax.swing.JMenuItem menuTKKH;
+    private javax.swing.JMenuItem menuTKNCC;
     private javax.swing.JMenuItem menuTKNV;
     private javax.swing.JMenuItem menuTKSP;
     private javax.swing.JMenu menuTKhoan;

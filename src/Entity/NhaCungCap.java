@@ -48,7 +48,9 @@ public class NhaCungCap {
     public void setSdt(int sdt) {
         this.sdt = sdt;
     }
-
+    public NhaCungCap(String maNhaCungCap) {
+        this.maNhaCungCap = maNhaCungCap;
+    }
     public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, int sdt, String diaChi) {
         this.maNhaCungCap = maNhaCungCap;
         this.tenNhaCungCap = tenNhaCungCap;

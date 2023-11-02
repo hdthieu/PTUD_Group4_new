@@ -11,21 +11,33 @@ import java.util.Objects;
  * @author dinhh
  */
 public class TaiKhoan {
-   private String tenTaiKhoan;
-   private String matKhau;
-   private String quyenTruyCap;
-   private String maNhanVien;
 
-   
-   public TaiKhoan(){
-       super();
-   }
-    public TaiKhoan(String tenTaiKhoan, String matKhau, String quyenTruyCap, String maNhanVien) {
+    private String maNhanVien;
+    private String tenNhanVien;
+    private String tenTaiKhoan;
+
+    private String matKhau;
+    private String quyenTruyCap;
+
+//  public TaiKhoan(String maNhanVien){
+//       this.maNhanVien=maNhanVien;
+//  }
+    public TaiKhoan(String maNhanVien, String tenNhanVien, String tenTaiKhoan, String matKhau, String quyenTruyCap) {
         super();
+        this.maNhanVien = maNhanVien;
+        this.tenNhanVien = tenNhanVien;
         this.tenTaiKhoan = tenTaiKhoan;
         this.matKhau = matKhau;
         this.quyenTruyCap = quyenTruyCap;
-        this.maNhanVien = maNhanVien;
+
+    }
+
+    public void setTenNhanVien(String tenNhanVien) {
+        this.tenNhanVien = tenNhanVien;
+    }
+
+    public String getTenNhanVien() {
+        return tenNhanVien;
     }
 
     @Override
@@ -33,8 +45,6 @@ public class TaiKhoan {
         int hash = 3;
         return hash;
     }
-
-    
 
     public String getTenTaiKhoan() {
         return tenTaiKhoan;
@@ -44,7 +54,6 @@ public class TaiKhoan {
         this.tenTaiKhoan = tenTaiKhoan;
     }
 
-   
     public String getMatKhau() {
         return matKhau;
     }
@@ -68,6 +77,7 @@ public class TaiKhoan {
     public void setMaNhanVien(String maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

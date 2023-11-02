@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import Connection.ConnectSQL;
 import Entity.NhaCungCap;
+import java.beans.Statement;
+import java.util.List;
 
 public class NhaCungCap_DAO {
 
@@ -93,21 +95,83 @@ public class NhaCungCap_DAO {
         return n > 0;
     }
 
-    public boolean checkTrungMaNhaCungCap(String maNhaCungCap) {
+    public ArrayList<NhaCungCap> getNhaCungCapTheoMaNhaCungCap(String maNhaCungCap) throws SQLException {
+        ArrayList<NhaCungCap> dsNhaCungCap = new ArrayList<>();
         Connection con = ConnectSQL.getInstance().getConnection();
-        PreparedStatement stmt = null;
-        try {
-            String sql = "SELECT * FROM NhaCungCap WHERE maNhaCungCap = ?";
-            stmt = con.prepareStatement(sql);
+
+        String sql = "SELECT * FROM NhaCungCap WHERE maNhaCungCap = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, maNhaCungCap);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-}
 
+            while (rs.next()) {
+                String ma = rs.getString("maNhaCungCap");
+                String ten = rs.getString("tenNhaCungCap");
+                int sdt = rs.getInt("soDienThoai");
+                String diaChi = rs.getString("diaChi");
+                NhaCungCap nhaCungCap = new NhaCungCap(ma, ten, sdt, diaChi);
+                dsNhaCungCap.add(nhaCungCap);
+            }
+        }
+
+        return dsNhaCungCap;
+    }
+
+    public ArrayList<NhaCungCap> getNhaCungCapTheoTenNhaCungCap(String tenNhaCungCap) throws SQLException {
+        ArrayList<NhaCungCap> dsNhaCungCap = new ArrayList<>();
+        Connection con = ConnectSQL.getInstance().getConnection();
+
+        String sql = "SELECT * FROM NhaCungCap WHERE tenNhaCungCap = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, tenNhaCungCap);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String ma = rs.getString("maNhaCungCap");
+                String ten = rs.getString("tenNhaCungCap");
+                int sdt = rs.getInt("soDienThoai");
+                String diaChi = rs.getString("diaChi");
+                NhaCungCap nhaCungCap = new NhaCungCap(ma, ten, sdt, diaChi);
+                dsNhaCungCap.add(nhaCungCap);
+            }
+        }
+
+        return dsNhaCungCap;
+    }
+
+    public List<NhaCungCap> searchNhaCungCap(String maNhaCungCap, String tenNhaCungCap, String sdt, String diaChi) throws SQLException {
+        List<NhaCungCap> danhSachNhaCungCap = new ArrayList<>();
+        Connection con = ConnectSQL.getInstance().getConnection();
+
+        String sql = "SELECT * FROM NhaCungCap WHERE 1=1";
+
+        if (!maNhaCungCap.isEmpty()) {
+            sql += " AND maNhaCungCap = '" + maNhaCungCap + "'";
+        }
+        if (!tenNhaCungCap.isEmpty()) {
+            sql += " AND tenNhaCungCap = '" + tenNhaCungCap + "'";
+        }
+        if (!sdt.isEmpty()) {
+            sql += " AND soDienThoai = " + sdt;
+        }
+        if (!diaChi.isEmpty()) {
+            sql += " AND diaChi = '" + diaChi + "'";
+        }
+
+        try (java.sql.Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String ma = rs.getString("maNhaCungCap");
+                String ten = rs.getString("tenNhaCungCap");
+                int soDienThoai = rs.getInt("soDienThoai");
+                String resultDiaChi = rs.getString("diaChi");
+                NhaCungCap nhaCungCap = new NhaCungCap(ma, ten, soDienThoai, resultDiaChi);
+                danhSachNhaCungCap.add(nhaCungCap);
+            }
+        }
+
+        return danhSachNhaCungCap;
+    }
+
+}
