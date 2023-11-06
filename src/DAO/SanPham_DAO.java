@@ -42,6 +42,7 @@ public class SanPham_DAO {
                 String hinhAnh = rs.getString("hinhAnh");
                 // You may need to retrieve other attributes as well
                 SanPham sanPham = new SanPham(maKH, tenKH, new LoaiSanPham(maloaiSP), giaNhap, giaBan, soLuong, new NhaCungCap(maNhaCungCap), hinhAnh);
+                dsSanPham.add(sanPham);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +77,7 @@ public class SanPham_DAO {
         PreparedStatement stmt = null;
         int n = 0;
         try {
-            stmt = con.prepareStatement("UPDATE SanPham SET tenSP = ?, giaBan = ?, giaNhap = ?, soLuong = ?, maloaiSP = ?, hinhAnh = ? WHERE maSP = ?");
+            stmt = con.prepareStatement("UPDATE SanPham SET tenSP = ?, giaBan = ?, giaNhap = ?, soLuong = ?, maloaiSP = ?, maNhaCungCap = ?, hinhAnh = ? WHERE maSP = ?");
             stmt.setString(1, sanPham.getTenSP());
             stmt.setDouble(2, sanPham.getGiaBan());
             stmt.setDouble(3, sanPham.getGiaNhap());
@@ -104,5 +105,31 @@ public class SanPham_DAO {
             e.printStackTrace();
         }
         return n > 0;
+    }
+    public ArrayList<SanPham> getSanPhamTheoMa(String maSP){
+        Connection con = ConnectSQL.getInstance().getConnection();
+        PreparedStatement stmt = null;
+        try {
+            String sql ="Select * from SanPham where maSP = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, maSP);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String maKH = rs.getString("maSP");
+                String tenKH = rs.getString("tenSP");
+                double giaBan = rs.getInt("giaBan");
+                double giaNhap = rs.getInt("giaNhap");
+                int soLuong = rs.getInt("soLuong");
+                String maloaiSP = rs.getString("maloaiSP");
+                String maNhaCungCap = rs.getString("maNhaCungCap");
+                String hinhAnh = rs.getString("hinhAnh");
+                // You may need to retrieve other attributes as well
+                SanPham sanPham = new SanPham(maKH, tenKH, new LoaiSanPham(maloaiSP), giaNhap, giaBan, soLuong, new NhaCungCap(maNhaCungCap), hinhAnh);
+                dsSanPham.add(sanPham);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dsSanPham;
     }
 }

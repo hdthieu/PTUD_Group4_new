@@ -33,6 +33,11 @@ public class NhanVien {
         this.diaChi = diaChi;
         this.hinhAnh = hinhAnh;
     }
+
+    public NhanVien(String maNhanVien) {
+        this.maNhanVien = maNhanVien;
+    }
+    
     public String getMaNhanVien() {
         return maNhanVien;
     }

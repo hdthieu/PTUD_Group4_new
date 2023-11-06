@@ -11,11 +11,10 @@ import java.util.Objects;
  * @author TriHieu
  */
 public class KhachHang {
-    private String maKH, tenKH, diaChi;
-    private int soDienThoai;
+    private String maKH, tenKH, diaChi, soDienThoai;
     private boolean gioiTinh;
 
-    public KhachHang(String maKH, String tenKH, String diaChi, int soDienThoai, boolean gioiTinh) {
+    public KhachHang(String maKH, String tenKH, String diaChi, String soDienThoai, boolean gioiTinh) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.diaChi = diaChi;
@@ -51,11 +50,11 @@ public class KhachHang {
         this.diaChi = diaChi;
     }
 
-    public int getSoDienThoai() {
+    public String getSoDienThoai() {
         return soDienThoai;
     }
 
-    public void setSoDienThoai(int soDienThoai) {
+    public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
     }
 

@@ -80,12 +80,12 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblSoDienThoai" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblKhachHang" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblMaKhachHang" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="txtKhachHang" min="-2" pref="209" max="-2" attributes="0"/>
+                                      <Component id="txtMaKhachHang" min="-2" pref="209" max="-2" attributes="0"/>
                                       <EmptySpace pref="104" max="32767" attributes="0"/>
                                       <Component id="lblTenKH" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -109,18 +109,12 @@
                                       </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                                      <Component id="btnSua" min="-2" pref="112" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnLamMoi" min="-2" pref="112" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="btnSua" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <Component id="btnLamMoi" min="-2" pref="112" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lblGioiTinh" min="-2" max="-2" attributes="0"/>
@@ -150,15 +144,16 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtTenKH" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="lblTenKH" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtKhachHang" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="lblKhachHang" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtMaKhachHang" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="lblMaKhachHang" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtDiaChi" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="lblDiaChi" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtSoDienThoai" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="lblSoDienThoai" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnLamMoi" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -169,8 +164,6 @@
                       <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                      <Component id="btnLamMoi" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -190,7 +183,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblKhachHang">
+            <Component class="javax.swing.JLabel" name="lblMaKhachHang">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="16" style="0"/>
@@ -232,7 +225,7 @@
                 <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtKhachHang">
+            <Component class="javax.swing.JTextField" name="txtMaKhachHang">
             </Component>
             <Component class="javax.swing.JButton" name="btnLamMoi">
               <Properties>
@@ -241,6 +234,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLamMoiActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSua">
               <Properties>
@@ -252,6 +248,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnXoa">
               <Properties>
@@ -263,6 +262,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnThem">
               <Properties>
@@ -390,6 +392,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblKhachHangMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

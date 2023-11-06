@@ -41,10 +41,11 @@ CREATE TABLE SanPham (
     giaBan float,
 	giaNhap float,
     soLuong INT NOT NULL,
-    maloaiSP VARCHAR (10),
+    maLoaiSP VARCHAR (10),
     maNhaCungCap VARCHAR(15),
     hinhAnh VARCHAR(MAX),
 	FOREIGN KEY (maNhaCungCap) REFERENCES NhaCungCap(maNhaCungCap),
+	FOREIGN KEY (maLoaiSP) REFERENCES LoaiSP(maLoaiSP)
 );
 Alter table SanPham 
 ADD Constraint checkGia Check (giaBan > giaNhap)
@@ -87,10 +88,8 @@ CREATE TABLE ChiTietPhieuDatHang (
 
 
 CREATE TABLE LoaiSP (
-    maLoai varchar(15) PRIMARY KEY ,
-    tenLoai nvarchar(MAX) NOT NULL,
-    maSP varchar(15),
-    FOREIGN KEY (maSP) REFERENCES SanPham(maSP)
+    maLoaiSP varchar(15) PRIMARY KEY ,
+    tenLoai nvarchar(MAX) NOT NULL
 );
 
 
@@ -118,7 +117,7 @@ VALUES
   ('NCC002', N'Công Ty Áo Yame',123456789, N'456 Lê Văn Việt, HCM' ); 
 
 -- Thêm dữ liệu vào bảng SanPham
-INSERT INTO SanPham (maSP, tenSP, giaBan, giaNhap, soLuong, maloaiSP, maNhaCungCap, hinhAnh)
+INSERT INTO SanPham (maSP, tenSP, giaBan, giaNhap, soLuong, maLoaiSP, maNhaCungCap, hinhAnh)
 VALUES 
   ('SP001', N'Quần Louis', 2000000.0, 1500000.0, 10, 'L001', 'NCC001', 'path/to/image1.jpg'),
   ('SP002', N'Áo Yame SCVT', 1800000.0, 1300000.0, 8, 'L002', 'NCC002', 'path/to/image2.jpg');
@@ -136,10 +135,10 @@ VALUES
   ('HD002', '2023-10-14', 'KH002', 'NV002'); 
 
 -- Thêm dữ liệu vào bảng LoaiSP
-INSERT INTO LoaiSP (maLoai, tenLoai, maSP)
+INSERT INTO LoaiSP (maLoaiSP, tenLoai)
 VALUES 
-  ('L001', N'Quần', 'SP001'), 
-  ('L002', N'Áo', 'SP002'); 
+  ('L001', N'Quần'), 
+  ('L002', N'Áo'); 
 
 -- Thêm Chi Tiết Phiếu Đặt Hàng
 INSERT INTO ChiTietPhieuDatHang (maPhieuDatHang, donGiaBan, soLuong, maSP)

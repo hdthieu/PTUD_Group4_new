@@ -27,7 +27,14 @@ public class SanPham {
         this.nhaCungCap = nhaCungCap;
         this.hinhAnh = hinhAnh;
     }
-
+public SanPham(String maSP, String tenSP, LoaiSanPham loaiSP, double giaBan, int soLuong) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.loaiSP = loaiSP;
+        this.giaBan = giaBan;
+        this.soLuong = soLuong;
+        
+    }
     public SanPham(String maSP) {
         this.maSP = maSP;
     }
