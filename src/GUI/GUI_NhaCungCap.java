@@ -8,6 +8,7 @@ package GUI;
 import Connection.ConnectSQL;
 import DAO.NhaCungCap_DAO;
 import Entity.NhaCungCap;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +55,7 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
         lblTenNCC = new javax.swing.JLabel();
         lblSdtNCC = new javax.swing.JLabel();
         lblDiaChiNCC = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblChucNang = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -97,7 +98,7 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
 
         lblDiaChiNCC.setText("Địa Chỉ");
 
-        jLabel6.setText("Chức Năng");
+        lblChucNang.setText("Chức Năng");
 
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_add.png"))); // NOI18N
         btnThem.setText("Thêm");
@@ -138,21 +139,20 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMaNCC)
+                    .addComponent(lblSdtNCC)
+                    .addComponent(lblChucNang))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(113, 113, 113)
                         .addComponent(btnThem)
-                        .addGap(57, 57, 57)
+                        .addGap(46, 46, 46)
                         .addComponent(btnLamMoi)
                         .addGap(48, 48, 48)
                         .addComponent(btnXoa)
-                        .addGap(48, 48, 48)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCapNhat))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMaNCC)
-                            .addComponent(lblSdtNCC))
-                        .addGap(48, 48, 48)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDienThoaiNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -166,7 +166,7 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
                                 .addComponent(lblTenNCC)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(438, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +185,7 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
                     .addComponent(txtDiaChiNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(lblChucNang)
                     .addComponent(btnThem)
                     .addComponent(btnLamMoi)
                     .addComponent(btnXoa)
@@ -253,13 +253,13 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
             NhaCungCap supplier = revertNCCFormTextFile();
-            // Call a DAO method to add the supplier to the database and update the table.
+            
             if (dSNCC.create(supplier)) {
                 Object[] rowData = {
                     supplier.getMaNhaCungCap(),
                     supplier.getTenNhaCungCap(),
-                    String.valueOf(supplier.getSdt()),
-                    supplier.getDiaChi(), // Add other fields.
+                    supplier.getSdt(),
+                    supplier.getDiaChi(), 
                 };
                 dataModel.addRow(rowData);
             }
@@ -307,16 +307,16 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
 
     private void updateSupplierTableData() {
         NhaCungCap_DAO supplierDAO = new NhaCungCap_DAO();
-        List<NhaCungCap> suppliers = supplierDAO.docTuBang(); // Implement this method in your DAO class to fetch suppliers.
+        List<NhaCungCap> suppliers = supplierDAO.docTuBang(); 
 
-        // Clear the existing data in the table (if needed).
+       
         dataModel.setRowCount(0);
 
         for (NhaCungCap supplier : suppliers) {
             String[] rowData = {
                 supplier.getMaNhaCungCap(),
                 supplier.getTenNhaCungCap(),
-                String.valueOf(supplier.getSdt()),
+                supplier.getSdt(),
                 supplier.getDiaChi()
             };
             dataModel.addRow(rowData);
@@ -346,13 +346,12 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
             return null;
         }
 
-        String sdtStr = txtDienThoaiNCC.getText();
-        if (!sdtStr.matches("^[0-9]{10}$")) {
+        String sdt = txtDienThoaiNCC.getText().toString();
+        if (!sdt.matches("^[0-9]{10}$")) {
             JOptionPane.showMessageDialog(null, "Số điện thoại phải có 10 số", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
-        int sdt = Integer.parseInt(sdtStr);
 
         String diaChi = txtDiaChiNCC.getText();
         if (diaChi.isEmpty()) {
@@ -371,11 +370,11 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblChucNang;
     private javax.swing.JLabel lblDiaChiNCC;
     private javax.swing.JLabel lblMaNCC;
     private javax.swing.JLabel lblSdtNCC;

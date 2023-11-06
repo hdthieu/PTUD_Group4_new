@@ -11,19 +11,27 @@ CREATE TABLE KhachHang(
 CREATE TABLE NhanVien(
     maNhanVien varchar(10) PRIMARY KEY ,
     tenNhanVien nvarchar(25) NOT NULL,
-	gioiTinh nvarchar(5) CHECK (gioiTinh IN (N'Nam', N'Nữ')),
-    ngaySinh Date,
+	gioiTinh nvarchar(5) NOT NULL, 
+    ngaySinh nvarchar(30) NOT NULL,
+	soDienThoai varchar(11) NOT NULL,
+		diaChi nvarchar(50) NOT NULL,
 	chucVu nvarchar(20) NOT NULL,
+<<<<<<< HEAD
 	soDienThoai varchar(11) NOT NULL,
 	diaChi nvarchar(50) NOT NULL,
 	hinhAnh VARCHAR(MAX),
+=======
+	hinhAnh image
+>>>>>>> 78513f62ecc32600449ee16a105d0fc5a625d264
 );
 
 CREATE TABLE TaiKhoan(
-	tenTaiKhoan varchar(15) PRIMARY KEY,
-	matKhau varchar(10) NOT NULL,
+	
+	tenTaiKhoan varchar(40) PRIMARY KEY,
+	matKhau varchar(20) NOT NULL,
 	quyenTruyCap nvarchar(MAX) NOT NULL,
 	maNhanVien varchar(10) ,
+	tenNhanVien nvarchar(30),
 	FOREIGN KEY (maNhanVien) REFERENCES NhanVien(maNhanVien)
 );
 
@@ -45,11 +53,19 @@ CREATE TABLE SanPham (
     giaBan float,
     giaNhap float,
     soLuong INT NOT NULL,
-    maloaiSP VARCHAR (10),
+    maLoaiSP VARCHAR (10),
     maNhaCungCap VARCHAR(15),
     hinhAnh VARCHAR(MAX),
 	FOREIGN KEY (maNhaCungCap) REFERENCES NhaCungCap(maNhaCungCap),
+<<<<<<< HEAD
 	FOREIGN KEY (maloaiSP) REFERENCES LoaiSP(maLoai)
+=======
+<<<<<<< HEAD
+	FOREIGN KEY (maLoaiSP) REFERENCES LoaiSP(maLoaiSP)
+=======
+	FOREIGN KEY (maloaiSP) REFERENCES LoaiSP(maLoai)
+>>>>>>> d33b5b60c944af709ca5ca87118ce4b3511dc005
+>>>>>>> 78513f62ecc32600449ee16a105d0fc5a625d264
 );
 Alter table SanPham 
 ADD Constraint checkGia Check (giaBan > giaNhap)
@@ -91,7 +107,18 @@ CREATE TABLE ChiTietPhieuDatHang (
 );
 
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+CREATE TABLE LoaiSP (
+    maLoaiSP varchar(15) PRIMARY KEY ,
+    tenLoai nvarchar(MAX) NOT NULL
+);
+=======
+
+>>>>>>> d33b5b60c944af709ca5ca87118ce4b3511dc005
+>>>>>>> 78513f62ecc32600449ee16a105d0fc5a625d264
 
 
 -- Thêm dữ liệu vào bảng KhachHang
@@ -106,6 +133,7 @@ VALUES
 -- Thêm dữ liệu vào bảng NhanVien
 INSERT INTO NhanVien (maNhanVien, tenNhanVien, diaChi, soDienThoai, gioiTinh, ngaySinh, hinhAnh, chucVu)
 VALUES 
+<<<<<<< HEAD
   ('QL001', N'Nguyễn Văn', N'Quận Gò Vấp, HCM', '0987563874', N'Nam', '1990-01-15', 'link_hinh_anh1', N'Quản Lý'), 
   ('NV002', N'Lại Văn Tạo', N'Quận Bình Thạnh, HCM', '0123456789', N'Nữ', '1995-05-05', 'path/to/avatar2.jpg', N'Nhân Viên Bán Hàng'),
   ('NV003', N'Trần Thị Hương', N'567 Lê Lai, Hà Nội', '0987654321', N'Nữ', '1992-03-20', 'path/to/avatar3.jpg', N'Nhân Viên Kho'),
@@ -119,6 +147,19 @@ VALUES (N'nguyenvan', '123', N'Quản Lý', 'QL001'),
 (N'huongtran', '123', N'Nhân Viên Kho', 'NV003'),
 (N'minhnguyen', '123', N'Nhân Viên Bán Hàng', 'NV004'),
 (N'hoapham', '123', N'Nhân Viên Kho', 'NV005');
+=======
+  ('NV001', N'Nguyễn Văn', N'Quận Gò Vấp, HCM', '0987563874', N'Nam', '1990-01-15', 'link_hinh_anh1', N'Nhân Viên Quản Lý'), 
+  ('NV002', N'Lại Văn Tạo', N'Quận Bình Thạnh, HCM', '0123456789', N'Nữ', '1995-05-05', 'path/to/avatar2.jpg', N'Nhân Viên Bán Hàng'),
+  ('NV003', N'Trần Thị Hương', N'567 Lê Lai, Hà Nội', '0987654321', N'Nữ', '1992-03-20', 'path/to/avatar3.jpg', N'Nhân Viên Quản Lý'),
+  ('NV004', N'Nguyễn Đình Minh', N'789 Nguyễn Văn Linh, Đà Nẵng', '0123456789', N'Nam', '1988-12-10', 'path/to/avatar4.jpg', N'Nhân Viên Bán Hàng'),
+  ('NV005', N'Phạm Thị Hoa', N'123 Trần Phú, HCM', '0987654321', N'Nữ', '1993-07-18', 'path/to/avatar5.jpg', N'Nhân Viên Bán Hàng');
+
+-- Thêm dữ liệu vào bảng TaiKhoan
+INSERT INTO TaiKhoan (tenTaiKhoan, matKhau, quyenTruyCap, maNhanVien,tenNhanVien)
+VALUES (N'nguyenvan', '123', N'Nhân Viên Quản Lý', 'NV001','Đinh Văn Hưng'), 
+(N'laivantao', '123', N'Nhân Viên Bán Hàng', 'NV002','Đinh Văn Hoàng')
+
+>>>>>>> 78513f62ecc32600449ee16a105d0fc5a625d264
 
 -- Thêm dữ liệu vào bảng NhaCungCap
 INSERT INTO NhaCungCap (maNhaCungCap, tenNhaCungCap, soDienThoai, diaChi)
@@ -133,7 +174,7 @@ VALUES
   ('L002', N'Áo');
 
 -- Thêm dữ liệu vào bảng SanPham
-INSERT INTO SanPham (maSP, tenSP, giaBan, giaNhap, soLuong, maloaiSP, maNhaCungCap, hinhAnh)
+INSERT INTO SanPham (maSP, tenSP, giaBan, giaNhap, soLuong, maLoaiSP, maNhaCungCap, hinhAnh)
 VALUES 
   ('SP001', N'Quần Louis', 2000000.0, 1500000.0, 10, 'L001', 'NCC001', 'path/to/image1.jpg'),
   ('SP002', N'Áo Yame SCVT', 1800000.0, 1300000.0, 8, 'L002', 'NCC002', 'path/to/image2.jpg'),
@@ -159,6 +200,17 @@ VALUES
   ('HD004', '2023-10-16', 'KH004', 'NV004'),
   ('HD005', '2023-10-17', 'KH005', 'NV005');
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+-- Thêm dữ liệu vào bảng LoaiSP
+INSERT INTO LoaiSP (maLoaiSP, tenLoai)
+VALUES 
+  ('L001', N'Quần'), 
+  ('L002', N'Áo'); 
+=======
+>>>>>>> d33b5b60c944af709ca5ca87118ce4b3511dc005
+>>>>>>> 78513f62ecc32600449ee16a105d0fc5a625d264
 
 -- Chèn dữ liệu vào PhieuDatHang
 INSERT INTO PhieuDatHang (maPhieuDatHang, ngayTaoPhieuDatHang, maKH, maNhanVien)

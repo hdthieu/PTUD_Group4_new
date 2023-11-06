@@ -32,8 +32,14 @@ public class KhachHang_DAO {
                 String maKH = rs.getString("maKH");
                 String tenKH = rs.getString("tenKH");
                 String diaChi = rs.getString("diaChi");
-                int SDT = rs.getInt("soDienThoai");
-                boolean gioiTinh = rs.getBoolean("gioiTinh");
+                String SDT = rs.getString("soDienThoai");
+                String gt = rs.getString("gioiTinh");
+                boolean gioiTinh ;
+                if(gt.equals("Nam"))
+                    gioiTinh = true;
+                else
+                    gioiTinh = false;
+    
                 // You may need to retrieve other attributes as well
                 KhachHang khachHang = new KhachHang(maKH, tenKH, diaChi, SDT, gioiTinh);
                 dsKhachHang.add(khachHang);
@@ -48,13 +54,18 @@ public class KhachHang_DAO {
         Connection con = ConnectSQL.getInstance().getConnection();
         PreparedStatement stmt = null;
         int n = 0;
+        String gt;
         try {
             stmt = con.prepareStatement("INSERT INTO KhachHang (maKH,tenKH,diaChi,soDienThoai,gioiTinh) VALUES (?, ?, ?, ?, ?)");
             stmt.setString(1, khachHang.getMaKH());
             stmt.setString(2, khachHang.getTenKH());
             stmt.setString(3, khachHang.getDiaChi());
-            stmt.setInt(4, khachHang.getSoDienThoai());
-            stmt.setBoolean(5, khachHang.isGioiTinh());
+            stmt.setString(4, khachHang.getSoDienThoai());
+            if(khachHang.isGioiTinh()==true)
+                gt="Nam";
+            else
+                gt="Nữ";
+            stmt.setString(5, gt);
             // Set other attributes as needed
             n = stmt.executeUpdate();
         } catch (SQLException e) {
@@ -67,12 +78,17 @@ public class KhachHang_DAO {
         Connection con = ConnectSQL.getInstance().getConnection();
         PreparedStatement stmt = null;
         int n = 0;
+        String gt;
         try {
             stmt = con.prepareStatement("UPDATE KhachHang SET tenKH = ?, diaChi = ?, soDienThoai = ?,gioiTinh = ? WHERE maKH = ?");
             stmt.setString(1, khachHang.getTenKH());
             stmt.setString(2, khachHang.getDiaChi());
-            stmt.setInt(3, khachHang.getSoDienThoai());
-            stmt.setBoolean(4,khachHang.isGioiTinh());
+            stmt.setString(3, khachHang.getSoDienThoai());
+            if(khachHang.isGioiTinh()==true)
+                gt="Nam";
+            else
+                gt="Nữ";
+            stmt.setString(4, gt);
             stmt.setString(5, khachHang.getMaKH());
             // Update other attributes as needed
             n = stmt.executeUpdate();

@@ -1,6 +1,13 @@
 
 package GUI;
 
+import DAO.KhachHang_DAO;
+import Entity.KhachHang;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author TriHieu
@@ -10,8 +17,16 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
     /**
      * Creates new form GUI_QuanLySP
      */
+    
+    KhachHang_DAO dsKhachHang = new KhachHang_DAO();
+    DefaultTableModel dataModel;
     public GUI_QuanLyKhachHang() {
         initComponents();
+        String[] khachHang ={"Mã Khách Hàng","Tên Khách Hàng","Số Điện Thoại","Địa Chỉ","Giới Tính"};
+        dataModel =new DefaultTableModel(khachHang,0);
+        tblKhachHang.setModel(dataModel);
+        Connection.ConnectSQL.getInstance().connect();
+        updateTable();
     }
 
     /**
@@ -26,13 +41,13 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
         btnGroupGioiTinh = new javax.swing.ButtonGroup();
         pnlMain = new javax.swing.JPanel();
         pnlNorth = new javax.swing.JPanel();
-        lblKhachHang = new javax.swing.JLabel();
+        lblMaKhachHang = new javax.swing.JLabel();
         lblSoDienThoai = new javax.swing.JLabel();
         lblTenKH = new javax.swing.JLabel();
         lblGioiTinh = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
         lblDiaChi = new javax.swing.JLabel();
-        txtKhachHang = new javax.swing.JTextField();
+        txtMaKhachHang = new javax.swing.JTextField();
         btnLamMoi = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -49,8 +64,8 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblKhachHang.setText("Mã Khách Hàng");
+        lblMaKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMaKhachHang.setText("Mã Khách Hàng");
 
         lblSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblSoDienThoai.setText("Số Điện Thoại");
@@ -66,14 +81,29 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
 
         btnLamMoi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLamMoi.setText("Làm Mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_change.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_remove.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_add.png"))); // NOI18N
@@ -109,11 +139,11 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
                     .addGroup(pnlNorthLayout.createSequentialGroup()
                         .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSoDienThoai)
-                            .addComponent(lblKhachHang))
+                            .addComponent(lblMaKhachHang))
                         .addGap(77, 77, 77)
                         .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNorthLayout.createSequentialGroup()
-                                .addComponent(txtKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtMaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                                 .addComponent(lblTenKH)
                                 .addGap(18, 18, 18)
@@ -131,22 +161,18 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(23, 23, 23)))))
+                        .addGap(60, 60, 60)
                         .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlNorthLayout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(205, 205, 205))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNorthLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(121, 121, 121))))
+                            .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(205, 205, 205))
                     .addGroup(pnlNorthLayout.createSequentialGroup()
                         .addComponent(lblGioiTinh)
                         .addGap(29, 29, 29)
                         .addComponent(rdoNam)
                         .addGap(36, 36, 36)
                         .addComponent(rdoNu)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlNorthLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -162,14 +188,15 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTenKH)
-                    .addComponent(txtKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblKhachHang))
-                .addGap(28, 28, 28)
+                    .addComponent(txtMaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMaKhachHang))
+                .addGap(24, 24, 24)
                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDiaChi)
                     .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSoDienThoai))
+                    .addComponent(lblSoDienThoai)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblGioiTinh)
@@ -177,9 +204,7 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
                     .addComponent(rdoNu))
                 .addGap(67, 67, 67))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNorthLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(btnXoa)
@@ -203,6 +228,11 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
                 "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ", "Giới Tính"
             }
         ));
+        tblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKhachHangMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblKhachHang);
 
         javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
@@ -255,8 +285,173 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        try {
+            KhachHang khThem = themKHFromTextFile();
+            // Call a DAO method to add the supplier to the database and update the table.
+            if (dsKhachHang.create(khThem)) {
+                String gt;
+                if(khThem.isGioiTinh())
+                    gt="Nam";
+                else
+                    gt="Nữ";
+                Object[] rowData = {
+                    khThem.getMaKH(),
+                    khThem.getTenKH(),
+                    String.valueOf(khThem.getSoDienThoai()),
+                    khThem.getDiaChi(),
+                    gt
+                    // Add other fields.
+                    
+                };
+                dataModel.addRow(rowData);
+                JOptionPane.showMessageDialog(null, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                xoaRong();
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        int row = tblKhachHang.getSelectedRow();
+        if (row >= 0) {
+            String khXoa = tblKhachHang.getValueAt(row, 0).toString();
+            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa khách hàng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION && dsKhachHang.delete(khXoa)) {
+                dataModel.removeRow(row);
+                JOptionPane.showMessageDialog(null, "Xóa thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                xoaRong();
+            }
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        int row = tblKhachHang.getSelectedRow();
+        if (row >= 0) {
+            KhachHang khCapNhap = suaKHFromTextFile();
+            if (dsKhachHang.update(khCapNhap)) { // Replace 'supplierDAO' with your actual supplier DAO instance.
+                tblKhachHang.setValueAt(khCapNhap.getTenKH(), row, 1);
+                tblKhachHang.setValueAt(khCapNhap.getSoDienThoai(), row, 2);
+                tblKhachHang.setValueAt(khCapNhap.getDiaChi(), row, 3);
+                String gt;
+                if(khCapNhap.isGioiTinh())
+                    gt="Nam";
+                else
+                    gt="Nữ";
+                tblKhachHang.setValueAt(gt, row, 4);
+                JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                xoaRong();
+            }
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        xoaRong();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
+        // TODO add your handling code here:
+        int row = tblKhachHang.getSelectedRow();
+        txtMaKhachHang.setText(tblKhachHang.getValueAt(row, 0).toString());
+        txtTenKH.setText(tblKhachHang.getValueAt(row, 1).toString());
+        txtSoDienThoai.setText(tblKhachHang.getValueAt(row, 2).toString());
+        txtDiaChi.setText(tblKhachHang.getValueAt(row, 3).toString());
+        if (tblKhachHang.getValueAt(row, 4).toString().equals("Nam"))
+            rdoNam.setSelected(true);
+        else if (tblKhachHang.getValueAt(row, 4).toString().equals("Nữ"))
+            rdoNu.setSelected(true);
+    }//GEN-LAST:event_tblKhachHangMouseClicked
+    private void updateTable(){
+        KhachHang_DAO ds = new KhachHang_DAO();
+        List<KhachHang> list = ds.docTuBang();
+        String gt;
+        for (KhachHang khachHang : list) {
+            if(khachHang.isGioiTinh())
+                gt="Nam";
+            else
+                gt="Nữ";
+                
+            String [] rowData={khachHang.getMaKH(), khachHang.getTenKH(),khachHang.getSoDienThoai()+"", khachHang.getDiaChi(), gt+""};
+                    dataModel.addRow(rowData);
+        }
+        tblKhachHang.setModel(dataModel);
+    }
+    private KhachHang themKHFromTextFile(){
+        KhachHang_DAO ds = new KhachHang_DAO();
+        List<KhachHang> list = ds.docTuBang();
+
+        // Tạo mã khách hàng mới
+        String maKh = phatSinhMaKH(list);
+        String tenNCC = txtTenKH.getText();
+        if (tenNCC.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên khách hàng không được để trống", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        String sdt = txtSoDienThoai.getText();
+        if (!sdt.matches("^[0-9]{10}$")) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại phải có 10 số", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+
+        String diaChi = txtDiaChi.getText();
+        if (diaChi.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Địa chỉ không được để trống", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        boolean gioiTinh=true;
+        if(rdoNu.isSelected())
+            gioiTinh=false;
+        KhachHang kh = new KhachHang(maKh, tenNCC, diaChi, sdt, gioiTinh);
+        return kh; 
+    }
+    public static String phatSinhMaKH(List<KhachHang> kh) {
+        int maxCode = 0;
+        for (KhachHang khachHang : kh) {
+            String maKhachHang = khachHang.getMaKH();
+            int code = Integer.parseInt(maKhachHang.substring(2));
+            if (code > maxCode) {
+                maxCode = code;
+            }
+        }
+        // Tạo mã khách hàng mới bằng cách tăng số lên 1 đơn vị
+        maxCode++;
+        if (maxCode < 1000) {
+        String newCode = "KH" + String.format("%03d", maxCode);
+        return newCode;
+    } else if (maxCode < 10000) {
+        String newCode = "KH" + String.format("%04d", maxCode);
+        return newCode;
+    } else {
+        // Xử lý khi mã vượt quá 9999
+        JOptionPane.showMessageDialog(null, "Mã số đã đạt tối đa, cần cập nhật thêm", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
+    }
+    private KhachHang suaKHFromTextFile(){
+        String ma=txtMaKhachHang.getText();
+        String ten=txtTenKH.getText();
+        String diaChi=txtDiaChi.getText();
+        String sdt=txtSoDienThoai.getText();
+        boolean gt;
+        if(rdoNam.isSelected())
+            gt=true;
+        else
+            gt=false;
+        KhachHang kh = new KhachHang(ma, ten, diaChi, sdt, gt);
+        return kh;
+    }
+    private void xoaRong(){
+        txtMaKhachHang.setText("");
+        txtTenKH.setText("");
+        txtSoDienThoai.setText("");
+        txtDiaChi.setText("");
+        btnGroupGioiTinh.clearSelection();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupGioiTinh;
@@ -268,7 +463,7 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDiaChi;
     private javax.swing.JLabel lblGioiTinh;
-    private javax.swing.JLabel lblKhachHang;
+    private javax.swing.JLabel lblMaKhachHang;
     private javax.swing.JLabel lblQuanLyKhachHang;
     private javax.swing.JLabel lblSoDienThoai;
     private javax.swing.JLabel lblTenKH;
@@ -279,7 +474,7 @@ public class GUI_QuanLyKhachHang extends javax.swing.JPanel {
     private javax.swing.JRadioButton rdoNu;
     private javax.swing.JTable tblKhachHang;
     private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtKhachHang;
+    private javax.swing.JTextField txtMaKhachHang;
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtTenKH;
     // End of variables declaration//GEN-END:variables
