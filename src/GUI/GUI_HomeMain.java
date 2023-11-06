@@ -1,15 +1,19 @@
 
 package GUI;
 
+import Connection.ConnectSQL;
 import GUI.GUI_QuanLySP;
 import GUI.GUI_TimKiemSP;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.LayoutManager;
+import java.awt.MenuItem;
 import java.awt.Panel;
+import java.awt.PopupMenu;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,13 +38,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 public class GUI_HomeMain extends javax.swing.JFrame {
 
     // Hello
 
     Connection conn;
+    ConnectSQL cn = new ConnectSQL();
     ResultSet rs;
+    private String tenTaiKhoan;
 
 
     public GUI_HomeMain() {
@@ -48,7 +57,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
     setLocationRelativeTo(null);
     this.setSize(new Dimension(1275, 840));
     this.setLocationRelativeTo(null);
-
+    
   
 }
    
@@ -70,11 +79,16 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         pnlBody = new javax.swing.JPanel();
         bgHome = new javax.swing.JLabel();
         LOGO = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        lblUser = new javax.swing.JLabel();
+        btnDangXuat = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuSP = new javax.swing.JMenu();
         menuQLSP = new javax.swing.JMenuItem();
         menuTKSP = new javax.swing.JMenuItem();
         menuQLNCC = new javax.swing.JMenuItem();
+        menuTKNCC = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuQLKH = new javax.swing.JMenuItem();
         menuTKKH = new javax.swing.JMenuItem();
@@ -108,6 +122,34 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         LOGO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
         LOGO.setText("FashionPro");
         pnlBody.add(LOGO, java.awt.BorderLayout.PAGE_START);
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 213));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblUser.setText("Admin");
+        jPanel1.add(lblUser);
+
+        btnDangXuat.setText("Đăng Xuất");
+        jPanel1.add(btnDangXuat);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(1235, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        pnlBody.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(pnlBody);
 
@@ -144,6 +186,16 @@ public class GUI_HomeMain extends javax.swing.JFrame {
             }
         });
         menuSP.add(menuQLNCC);
+
+        menuTKNCC.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        menuTKNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_item.png"))); // NOI18N
+        menuTKNCC.setText("Tìm Kiếm Nhà Cung Cấp");
+        menuTKNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTKNCCActionPerformed(evt);
+            }
+        });
+        menuSP.add(menuTKNCC);
 
         jMenuBar1.add(menuSP);
 
@@ -266,6 +318,70 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1493, 857));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+ private void addMenu(JMenu... menus) {
+    for (JMenu menu : menus) {
+        jMenuBar1.add((PopupMenu) menu);
+        Component[] menuComponents = menu.getMenuComponents();
+        for (Component subMenu : menuComponents) {
+            if (subMenu instanceof JMenu) {
+                addMenu((JMenu) subMenu);
+            } else if (subMenu instanceof JMenuItem) {
+                jMenuBar1.add((JMenuItem) subMenu);
+            }
+        }
+    }
+    jMenuBar1.revalidate();
+}
+    public void setTenTaiKhoan(String tenTaiKhoan) {
+        this.tenTaiKhoan = tenTaiKhoan;
+        lblUser.setText(tenTaiKhoan);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+//                execute();
+            }
+        });
+    }
+    
+
+    public String getTenTaiKhoan() {
+        return this.tenTaiKhoan;
+    }
+    
+    public String quyentruycap(){
+       conn = cn.getConnection();
+        
+      
+         String query = "Select quyenTruyCap as quyen from TaiKhoan where tenTaiKhoan=? ";
+        try {
+            PreparedStatement st = conn.prepareStatement(query);
+            System.out.println("tenTaiKhoan: " + getTenTaiKhoan());
+            st.setString(1, getTenTaiKhoan());
+            ResultSet rs=st.executeQuery();
+            while (rs.next()) {
+               return  rs.getString("quyen"); 
+               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI_HomeMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         return "CN";
+    }
+    public boolean checkquyen(MenuItem menuQLSP,MenuItem menuQLNV){
+        String quyen= quyentruycap();
+        if(quyen.equals("Nhân Viên Bán Hàng")){
+             addMenu(menuQLSP);
+             return false;
+        }else if(quyen.equals("Nhân Viên Quản Lý")){
+             addMenu(menuQLNV);
+             return false;
+        }
+        
+        
+        
+        
+        return true;
+    }
 
     private void menuQLNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQLNCCActionPerformed
         pnlBody.removeAll();
@@ -344,23 +460,36 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         pnlBody.revalidate();
     }//GEN-LAST:event_menuQLTKActionPerformed
 
+
+    private void menuTKNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTKNCCActionPerformed
+        pnlBody.removeAll();
+        pnlBody.add(new GUI_TimKiemNhaCungCap());
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_menuTKNCCActionPerformed
+
     private void menuDonDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDonDHActionPerformed
         pnlBody.removeAll();
         pnlBody.add(new GUI_DonDatHang());
         pnlBody.repaint();
         pnlBody.revalidate();
     }//GEN-LAST:event_menuDonDHActionPerformed
+
     
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LOGO;
     private javax.swing.JLabel bgHome;
+    private javax.swing.JButton btnDangXuat;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JMenuItem menuDonDH;
     private javax.swing.JMenuItem menuLHD;
     private javax.swing.JMenuItem menuQLKH;
@@ -371,6 +500,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
     private javax.swing.JMenu menuSP;
     private javax.swing.JMenuItem menuTKHD;
     private javax.swing.JMenuItem menuTKKH;
+    private javax.swing.JMenuItem menuTKNCC;
     private javax.swing.JMenuItem menuTKNV;
     private javax.swing.JMenuItem menuTKSP;
     private javax.swing.JMenu menuTKhoan;
