@@ -326,7 +326,7 @@ public class GUI_TimKiemNhaCungCap extends javax.swing.JPanel {
             String[] rowData = {
                 supplier.getMaNhaCungCap(),
                 supplier.getTenNhaCungCap(),
-                String.valueOf(supplier.getSdt()),
+                supplier.getSdt(),
                 supplier.getDiaChi()
             };
             dataModel.addRow(rowData);

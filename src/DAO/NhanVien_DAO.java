@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import Connection.ConnectSQL;
+import Entity.NhaCungCap;
 
 import Entity.NhanVien;
 import java.util.Date;
+import java.util.List;
 
 public class NhanVien_DAO {
 
@@ -30,16 +32,14 @@ public class NhanVien_DAO {
                 NhanVien nhanVien = new NhanVien(
                         rs.getString("maNhanVien"),
                         rs.getString("tenNhanVien"),
-                        rs.getBoolean("gioiTinh"),
-                        rs.getDate("ngaySinh"),
-                        rs.getInt("soDienThoai"),
+                        rs.getString("gioiTinh"),
+                        rs.getString("ngaySinh"),
+                        rs.getString("soDienThoai"),
                         rs.getString("diaChi"),
                         rs.getString("chucVu"),
                         rs.getBytes("hinhAnh")
-                    
                 );
                 dsNhanVien.add(nhanVien);
-                System.out.println("cc");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,9 +55,9 @@ public class NhanVien_DAO {
             stmt = con.prepareStatement("INSERT INTO NhanVien (maNhanVien, tenNhanVien, gioiTinh, ngaySinh, soDienThoai, diaChi, chucVu, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, p.getMaNhanVien());
             stmt.setString(2, p.getTenNhanVien());
-            stmt.setBoolean(3, p.isGioiTinh());
-            stmt.setDate(4, new java.sql.Date(p.getNgaySinh().getTime()));
-            stmt.setInt(5, p.getSDT());
+            stmt.setString(3, p.getGioiTinh());
+            stmt.setString(4, p.getNgaySinh());
+            stmt.setString(5, p.getSDT());
             stmt.setString(6, p.getDiaChi());
             stmt.setString(7, p.getChucVu());
             stmt.setBytes(8, p.getHinhAnh());
@@ -77,9 +77,9 @@ public class NhanVien_DAO {
             stmt = con.prepareStatement("UPDATE NhanVien SET tenNhanVien = ?, gioiTinh = ?, ngaySinh = ?, soDienThoai = ?, diaChi = ?, chucVu = ?, hinhAnh = ? where maNhanVien = ?");
             stmt.setString(1, p.getMaNhanVien());
             stmt.setString(2, p.getTenNhanVien());
-            stmt.setBoolean(3, p.isGioiTinh());
-            stmt.setDate(4, new java.sql.Date(p.getNgaySinh().getTime()));
-            stmt.setInt(5, p.getSDT());
+            stmt.setString(3, p.getGioiTinh());
+            stmt.setString(4, p.getNgaySinh());
+            stmt.setString(5, p.getSDT());
             stmt.setString(6, p.getDiaChi());
             stmt.setString(7, p.getChucVu());
             stmt.setBytes(8, p.getHinhAnh());
@@ -104,20 +104,70 @@ public class NhanVien_DAO {
         return n > 0;
     }
 
-//    public boolean checkTrungMaNV(String maNV) {
-//        Connection con = ConnectSQL.getInstance().getConnection();
-//        PreparedStatement stmt = null;
-//        try {
-//            String sql = "SELECT * FROM NhanVien WHERE MaNV = ?";
-//            stmt = con.prepareStatement(sql);
-//            stmt.setString(1, maNV);
-//            ResultSet rs = stmt.executeQuery();
-//            if (rs.next()) {
-//                return true;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
+     public List<NhanVien> searchEmployee(String maNhanVien, String tenNhanVien, String gioiTinh, String ngaySinh, String sdt, String diaChi, String chucVu) throws SQLException {
+        List<NhanVien> danhSachNhanVien = new ArrayList<>();
+        Connection con = ConnectSQL.getInstance().getConnection();
+
+        String sql = "SELECT * FROM NhanVien WHERE 1=1";
+        List<String> conditions = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
+
+        if (maNhanVien != null && !maNhanVien.isEmpty()) {
+            conditions.add("maNhanVien = ?");
+            params.add(maNhanVien);
+        }
+        if (tenNhanVien != null && !tenNhanVien.isEmpty()) {
+            conditions.add("tenNhanVien = ?");
+            params.add(tenNhanVien);
+        }
+        if (sdt != null && !sdt.isEmpty()) {
+            conditions.add("soDienThoai = ?");
+            params.add(sdt);
+        }
+        if (diaChi != null && !diaChi.isEmpty()) {
+            conditions.add("diaChi = ?");
+            params.add(diaChi);
+        }
+        if (ngaySinh != null) {
+            conditions.add("ngaySinh = ?");
+            params.add(ngaySinh);
+        }
+        if (chucVu != null && !chucVu.isEmpty()) {
+            conditions.add("chucVu = ?");
+            params.add(chucVu);
+        }
+
+        conditions.add("gioiTinh = ?");
+        params.add(gioiTinh);
+
+        if (!conditions.isEmpty()) {
+            sql += " AND " + String.join(" AND ", conditions);
+        }
+
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String ma = rs.getString("maNhanVien");
+                String ten = rs.getString("tenNhanVien");
+                String gioiTinhResult = rs.getString("gioiTinh");
+                String soDienThoai = rs.getString("soDienThoai");
+                String resultDiaChi = rs.getString("diaChi");
+                String ngaySinhResult = rs.getString("ngaySinh");
+                String chucVuResult = rs.getString("chucVu");
+                
+                NhanVien nhanVien = new NhanVien(ma, ten, gioiTinhResult, ngaySinhResult, soDienThoai, resultDiaChi, chucVuResult);
+                danhSachNhanVien.add(nhanVien);
+            }
+        }
+
+        return danhSachNhanVien;
+    }
+
 }
+
+

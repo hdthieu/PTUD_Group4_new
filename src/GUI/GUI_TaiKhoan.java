@@ -139,7 +139,7 @@ public class GUI_TaiKhoan extends javax.swing.JPanel {
 
         lblQuyenTruyCap.setText("Quyền Truy Cập");
 
-        cboQuyenTruyCap.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán Hàng", "Nhân Viên Thống Kê", "Nhân Viên Quản Lý" }));
+        cboQuyenTruyCap.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán Hàng", "Nhân Viên Quản Lý" }));
 
         lblChucNang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblChucNang.setText("Chức Năng");
@@ -443,7 +443,7 @@ public class GUI_TaiKhoan extends javax.swing.JPanel {
         String tenTaiKhoan = txtTenTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
         String quyenTruyCap = cboQuyenTruyCap.getSelectedItem().toString();
-        return new TaiKhoan(tenTaiKhoan, matKhau, quyenTruyCap, maNhanVien, tenNhanVien);
+        return new TaiKhoan(maNhanVien, tenNhanVien,tenTaiKhoan, matKhau, quyenTruyCap );
     }
 
 }

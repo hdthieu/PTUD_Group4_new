@@ -132,12 +132,6 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
             }
         });
 
-        txtDienThoaiNCC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDienThoaiNCCActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -259,15 +253,13 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
             NhaCungCap supplier = revertNCCFormTextFile();
-            String sdtStr = String.valueOf(supplier.getSdt());
-
-            // Call a DAO method to add the supplier to the database and update the table.
+            
             if (dSNCC.create(supplier)) {
                 Object[] rowData = {
                     supplier.getMaNhaCungCap(),
                     supplier.getTenNhaCungCap(),
-                    sdtStr,
-                    supplier.getDiaChi(), // Add other fields.
+                    supplier.getSdt(),
+                    supplier.getDiaChi(), 
                 };
                 dataModel.addRow(rowData);
             }
@@ -313,22 +305,18 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
-    private void txtDienThoaiNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDienThoaiNCCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDienThoaiNCCActionPerformed
-
     private void updateSupplierTableData() {
         NhaCungCap_DAO supplierDAO = new NhaCungCap_DAO();
-        List<NhaCungCap> suppliers = supplierDAO.docTuBang(); // Implement this method in your DAO class to fetch suppliers.
+        List<NhaCungCap> suppliers = supplierDAO.docTuBang(); 
 
-        // Clear the existing data in the table (if needed).
+       
         dataModel.setRowCount(0);
 
         for (NhaCungCap supplier : suppliers) {
             String[] rowData = {
                 supplier.getMaNhaCungCap(),
                 supplier.getTenNhaCungCap(),
-                String.valueOf(supplier.getSdt()),
+                supplier.getSdt(),
                 supplier.getDiaChi()
             };
             dataModel.addRow(rowData);
@@ -358,23 +346,12 @@ public class GUI_NhaCungCap extends javax.swing.JPanel {
             return null;
         }
 
-        String sdtStr = txtDienThoaiNCC.getText().toString();
-        int sdt = 0;
-
-        if (sdtStr.matches("^[0-9]{10}$")) {
-            // Chuyển chuỗi số điện thoại thành một số nguyên
-            sdt = Integer.parseInt(sdtStr);
-
-            // Định dạng số điện thoại với số 0 ở đầu
-            DecimalFormat decimalFormat = new DecimalFormat("0000000000");
-            String formattedSdt = decimalFormat.format(sdt);
-
-            // Hiển thị số điện thoại đã định dạng trên giao diện
-            txtDienThoaiNCC.setText(formattedSdt);
-        } else {
+        String sdt = txtDienThoaiNCC.getText().toString();
+        if (!sdt.matches("^[0-9]{10}$")) {
             JOptionPane.showMessageDialog(null, "Số điện thoại phải có 10 số", "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+
 
         String diaChi = txtDiaChiNCC.getText();
         if (diaChi.isEmpty()) {

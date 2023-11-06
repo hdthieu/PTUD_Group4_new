@@ -15,7 +15,6 @@ public class TaiKhoan {
     private String maNhanVien;
     private String tenNhanVien;
     private String tenTaiKhoan;
-
     private String matKhau;
     private String quyenTruyCap;
 

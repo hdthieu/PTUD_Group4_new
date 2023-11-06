@@ -5,6 +5,7 @@
 package Entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -13,14 +14,14 @@ import java.util.Date;
 public class NhanVien {
     private String maNhanVien;
     private String tenNhanVien;
-    private boolean gioiTinh;
-    private Date ngaySinh;
-    private int SDT;
+    private String gioiTinh;
+    private String ngaySinh;
+    private String SDT;
     private String diaChi;
     private String chucVu;
     private byte[] hinhAnh;;
 
-    public NhanVien(String maNhanVien, String tenNhanVien, boolean gioiTinh,Date ngaySinh,int SDT, String diaChi, String chucVu, byte[] hinhAnh ) {
+    public NhanVien(String maNhanVien, String tenNhanVien, String gioiTinh,String ngaySinh,String SDT, String diaChi, String chucVu, byte[] hinhAnh ) {
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.gioiTinh = gioiTinh;
@@ -30,7 +31,15 @@ public class NhanVien {
         this.chucVu = chucVu;
         this.hinhAnh = hinhAnh;
     }
-
+    public NhanVien(String maNhanVien, String tenNhanVien, String gioiTinh,String ngaySinh,String SDT, String diaChi, String chucVu ) {
+        this.maNhanVien = maNhanVien;
+        this.tenNhanVien = tenNhanVien;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.SDT = SDT;
+        this.diaChi = diaChi;
+        this.chucVu = chucVu;
+    }
     public String getMaNhanVien() {
         return maNhanVien;
     }
@@ -39,15 +48,13 @@ public class NhanVien {
         return tenNhanVien;
     }
 
-    public boolean isGioiTinh() {
-        return gioiTinh;
-    }
+   
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return ngaySinh;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
@@ -71,15 +78,19 @@ public class NhanVien {
         this.tenNhanVien = tenNhanVien;
     }
 
-    public void setGioiTinh(boolean gioiTinh) {
+    public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
-    public void setSDT(int SDT) {
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }
 
@@ -99,8 +110,34 @@ public class NhanVien {
     public String toString() {
         return "NhanVien{" + "maNhanVien=" + maNhanVien + ", tenNhanVien=" + tenNhanVien + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", SDT=" + SDT + ", diaChi=" + diaChi + ", chucVu=" + chucVu + ", hinhAnh=" + hinhAnh + '}';
     }
-    
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.maNhanVien);
+        hash = 59 * hash + Objects.hashCode(this.SDT);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NhanVien other = (NhanVien) obj;
+        if (!Objects.equals(this.maNhanVien, other.maNhanVien)) {
+            return false;
+        }
+        return Objects.equals(this.SDT, other.SDT);
+    }
+    
+    
    
     
 }

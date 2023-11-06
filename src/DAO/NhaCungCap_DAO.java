@@ -32,7 +32,7 @@ public class NhaCungCap_DAO {
             while (rs.next()) {
                 String maNhaCungCap = rs.getString("maNhaCungCap");
                 String tenNhaCungCap = rs.getString("tenNhaCungCap");
-                int SDT = rs.getInt("soDienThoai");
+                String SDT = rs.getString("soDienThoai");
                 String diaChi = rs.getString("diaChi");
                 // You may need to retrieve other attributes as well
 
@@ -53,7 +53,7 @@ public class NhaCungCap_DAO {
             stmt = con.prepareStatement("INSERT INTO NhaCungCap (maNhaCungCap,tenNhaCungCap, soDienThoai, diaChi) VALUES (?, ?, ?, ?)");
             stmt.setString(1, nhaCungCap.getMaNhaCungCap());
             stmt.setString(2, nhaCungCap.getTenNhaCungCap());
-            stmt.setInt(3, nhaCungCap.getSdt());
+            stmt.setString(3, nhaCungCap.getSdt());
             stmt.setString(4, nhaCungCap.getDiaChi());
             // Set other attributes as needed
             n = stmt.executeUpdate();
@@ -70,7 +70,7 @@ public class NhaCungCap_DAO {
         try {
             stmt = con.prepareStatement("UPDATE NhaCungCap SET tenNhaCungCap = ?, soDienThoai = ?, diaChi = ? WHERE maNhaCungCap = ?");
             stmt.setString(1, nhaCungCap.getTenNhaCungCap());
-            stmt.setInt(2, nhaCungCap.getSdt());
+            stmt.setString(2, nhaCungCap.getSdt());
             stmt.setString(3, nhaCungCap.getDiaChi());
             stmt.setString(4, nhaCungCap.getMaNhaCungCap());
             // Update other attributes as needed
@@ -95,49 +95,7 @@ public class NhaCungCap_DAO {
         return n > 0;
     }
 
-    public ArrayList<NhaCungCap> getNhaCungCapTheoMaNhaCungCap(String maNhaCungCap) throws SQLException {
-        ArrayList<NhaCungCap> dsNhaCungCap = new ArrayList<>();
-        Connection con = ConnectSQL.getInstance().getConnection();
-
-        String sql = "SELECT * FROM NhaCungCap WHERE maNhaCungCap = ?";
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, maNhaCungCap);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                String ma = rs.getString("maNhaCungCap");
-                String ten = rs.getString("tenNhaCungCap");
-                int sdt = rs.getInt("soDienThoai");
-                String diaChi = rs.getString("diaChi");
-                NhaCungCap nhaCungCap = new NhaCungCap(ma, ten, sdt, diaChi);
-                dsNhaCungCap.add(nhaCungCap);
-            }
-        }
-
-        return dsNhaCungCap;
-    }
-
-    public ArrayList<NhaCungCap> getNhaCungCapTheoTenNhaCungCap(String tenNhaCungCap) throws SQLException {
-        ArrayList<NhaCungCap> dsNhaCungCap = new ArrayList<>();
-        Connection con = ConnectSQL.getInstance().getConnection();
-
-        String sql = "SELECT * FROM NhaCungCap WHERE tenNhaCungCap = ?";
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, tenNhaCungCap);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                String ma = rs.getString("maNhaCungCap");
-                String ten = rs.getString("tenNhaCungCap");
-                int sdt = rs.getInt("soDienThoai");
-                String diaChi = rs.getString("diaChi");
-                NhaCungCap nhaCungCap = new NhaCungCap(ma, ten, sdt, diaChi);
-                dsNhaCungCap.add(nhaCungCap);
-            }
-        }
-
-        return dsNhaCungCap;
-    }
+    
 
     public List<NhaCungCap> searchNhaCungCap(String maNhaCungCap, String tenNhaCungCap, String sdt, String diaChi) throws SQLException {
         List<NhaCungCap> danhSachNhaCungCap = new ArrayList<>();
@@ -164,7 +122,7 @@ public class NhaCungCap_DAO {
             while (rs.next()) {
                 String ma = rs.getString("maNhaCungCap");
                 String ten = rs.getString("tenNhaCungCap");
-                int soDienThoai = rs.getInt("soDienThoai");
+                String soDienThoai = rs.getString("soDienThoai");
                 String resultDiaChi = rs.getString("diaChi");
                 NhaCungCap nhaCungCap = new NhaCungCap(ma, ten, soDienThoai, resultDiaChi);
                 danhSachNhaCungCap.add(nhaCungCap);

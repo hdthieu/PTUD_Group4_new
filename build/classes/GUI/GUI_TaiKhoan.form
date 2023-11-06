@@ -238,10 +238,9 @@
         <Component class="javax.swing.JComboBox" name="cboQuyenTruyCap">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="2">
                 <StringItem index="0" value="Nh&#xe2;n Vi&#xea;n B&#xe1;n H&#xe0;ng"/>
-                <StringItem index="1" value="Nh&#xe2;n Vi&#xea;n Th&#x1ed1;ng K&#xea;"/>
-                <StringItem index="2" value="Nh&#xe2;n Vi&#xea;n Qu&#x1ea3;n L&#xfd;"/>
+                <StringItem index="1" value="Nh&#xe2;n Vi&#xea;n Qu&#x1ea3;n L&#xfd;"/>
               </StringArray>
             </Property>
           </Properties>

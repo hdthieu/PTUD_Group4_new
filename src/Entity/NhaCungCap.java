@@ -13,7 +13,7 @@ import java.util.Objects;
 public class NhaCungCap {
     private String maNhaCungCap;
     private String tenNhaCungCap;
-    private int sdt;
+    private String sdt;
     private String diaChi;
     
 
@@ -29,7 +29,7 @@ public class NhaCungCap {
         return diaChi;
     }
 
-    public int getSdt() {
+    public String getSdt() {
         return sdt;
     }
 
@@ -45,13 +45,13 @@ public class NhaCungCap {
         this.diaChi = diaChi;
     }
 
-    public void setSdt(int sdt) {
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
     public NhaCungCap(String maNhaCungCap) {
         this.maNhaCungCap = maNhaCungCap;
     }
-    public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, int sdt, String diaChi) {
+    public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, String sdt, String diaChi) {
         this.maNhaCungCap = maNhaCungCap;
         this.tenNhaCungCap = tenNhaCungCap;
         this.sdt = sdt;
@@ -59,27 +59,15 @@ public class NhaCungCap {
         
     }
 
-    public NhaCungCap(String maNhaCungCap) {
-        this.maNhaCungCap = maNhaCungCap;
-    }
-
-    public NhaCungCap() {
-    }
-
-    
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.maNhaCungCap);
-        hash = 37 * hash + Objects.hashCode(this.tenNhaCungCap);
-        hash = 37 * hash + Objects.hashCode(this.diaChi);
-        hash = 37 * hash + this.sdt;
-        return hash;
-    }
-
     @Override
     public String toString() {
         return "NhaCungCap{" + "maNhaCungCap=" + maNhaCungCap + ", tenNhaCungCap=" + tenNhaCungCap + ", sdt=" + sdt + ", diaChi=" + diaChi + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
     }
 
     @Override
@@ -94,16 +82,28 @@ public class NhaCungCap {
             return false;
         }
         final NhaCungCap other = (NhaCungCap) obj;
-        if (this.sdt != other.sdt) {
-            return false;
-        }
         if (!Objects.equals(this.maNhaCungCap, other.maNhaCungCap)) {
             return false;
         }
         if (!Objects.equals(this.tenNhaCungCap, other.tenNhaCungCap)) {
             return false;
         }
+        if (!Objects.equals(this.sdt, other.sdt)) {
+            return false;
+        }
         return Objects.equals(this.diaChi, other.diaChi);
     }
+
+    
+
+    
+    
+
+    
+
+  
+   
+   
+    
     
 }
