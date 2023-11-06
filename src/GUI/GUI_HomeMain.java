@@ -89,7 +89,7 @@ public class GUI_HomeMain extends javax.swing.JFrame {
         menuTKhoan = new javax.swing.JMenu();
         menuQLTK = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fashion_Phần Mềm Quản Lý Bán Hàng Quần Áo Thời Trang");
         setBackground(new java.awt.Color(0, 204, 51));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));

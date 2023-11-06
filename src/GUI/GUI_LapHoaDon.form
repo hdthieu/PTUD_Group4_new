@@ -254,6 +254,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel4">
 
@@ -283,7 +286,7 @@
                                           <Group type="102" attributes="0">
                                               <Component id="jTextField7" min="-2" pref="126" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="jButton1" min="-2" pref="34" max="-2" attributes="0"/>
+                                              <Component id="btnSelectMaSP" min="-2" pref="34" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jLabel5" min="-2" pref="185" max="-2" attributes="0"/>
                                       </Group>
@@ -313,7 +316,7 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnSelectMaSP" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -339,7 +342,7 @@
                               <Component id="jScrollPane2" alignment="1" min="-2" pref="382" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jButton6" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -482,12 +485,12 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField13">
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="btnSelectMaSP">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="..."/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelectMaSPActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton7">

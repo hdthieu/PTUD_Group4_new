@@ -16,7 +16,7 @@ public class ConnectSQL {
     public static ConnectSQL getInstance(){
         return instance;
     }
-    public void connect(){
+    public static void connect(){
         String url = "jdbc:sqlserver://localhost:1433; databasename=GROUP4";
         String user = "sa";
         String password = "123";

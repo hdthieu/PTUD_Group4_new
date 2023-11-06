@@ -241,7 +241,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Fashion_Ph&#x1ea7;n M&#x1ec1;m Qu&#x1ea3;n L&#xfd; B&#xe1;n H&#xe0;ng Qu&#x1ea7;n &#xc1;o Th&#x1edd;i Trang"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="33" green="cc" red="0" type="rgb"/>

@@ -12,6 +12,7 @@ public class GUI_QuanLySP extends javax.swing.JPanel {
      */
     public GUI_QuanLySP() {
         initComponents();
+        
     }
 
     /**
